@@ -32,7 +32,7 @@ along with ao-messaging-api.  If not, see <http://www.gnu.org/licenses />.
 
 	<groupId>com.aoindustries</groupId>
 	<artifactId>ao-messaging-api</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>AO Messaging API</name>
@@ -44,7 +44,7 @@ along with ao-messaging-api.  If not, see <http://www.gnu.org/licenses />.
 		<connection>scm:git:git://github.com/aoindustries/ao-messaging-api.git</connection>
 		<developerConnection>scm:git:git@github.com:aoindustries/ao-messaging-api.git</developerConnection>
 		<url>http://github.com/aoindustries/ao-messaging-api</url>
-		<tag>ao-messaging-api-1.0.0</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 	<profiles>
