@@ -1,6 +1,6 @@
 /*
  * ao-messaging-api - Asynchronous bidirectional messaging over various protocols API.
- * Copyright (C) 2014, 2015, 2016  AO Industries, Inc.
+ * Copyright (C) 2014, 2015, 2016, 2017  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -24,6 +24,7 @@ package com.aoindustries.messaging;
 
 import com.aoindustries.io.AoByteArrayInputStream;
 import com.aoindustries.io.AoByteArrayOutputStream;
+import com.aoindustries.tempfiles.TempFileContext;
 import com.aoindustries.util.AoCollections;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -48,8 +49,36 @@ public class MultiMessage implements Message {
 	}
 
 	/**
-	 * Decodes the messages.
+	 * Decodes the messages using the provided {@link TempFileContext temporary file context}.
 	 */
+	public static MultiMessage decode(String encodedMessages, TempFileContext tempFileContext) throws IOException {
+		if(encodedMessages.isEmpty()) return EMPTY_MULTI_MESSAGE;
+
+		int pos = encodedMessages.indexOf(DELIMITER);
+		if(pos == -1) throw new IllegalArgumentException("Delimiter not found");
+		final int size = Integer.parseInt(encodedMessages.substring(0, pos++));
+		List<Message> decodedMessages = new ArrayList<Message>(size);
+		for(int i=0; i<size; i++) {
+			MessageType type = MessageType.getFromTypeChar(encodedMessages.charAt(pos++));
+			int nextPos = encodedMessages.indexOf(DELIMITER, pos);
+			if(nextPos == -1) throw new IllegalArgumentException("Delimiter not found");
+			final int capacity = Integer.parseInt(encodedMessages.substring(pos, nextPos++));
+			pos = nextPos + capacity;
+			decodedMessages.add(type.decode(encodedMessages.substring(nextPos, pos), tempFileContext));
+		}
+		if(pos != encodedMessages.length()) throw new IllegalArgumentException("pos != encodedMessages.length()");
+		return new MultiMessage(Collections.unmodifiableList(decodedMessages));
+	}
+
+	/**
+	 * Decodes the messages, possibly using temporary files with {@link File#deleteOnExit()}.
+	 *
+	 * @see  #decode(java.lang.String, com.aoindustries.tempfiles.TempFileContext)
+	 *
+	 * @deprecated  Please use {@link TempFileContext}
+	 *              as {@link File#deleteOnExit()} is prone to memory leaks in long-running applications.
+	 */
+	@Deprecated
 	public static MultiMessage decode(String encodedMessages) throws IOException {
 		if(encodedMessages.isEmpty()) return EMPTY_MULTI_MESSAGE;
 
@@ -70,8 +99,43 @@ public class MultiMessage implements Message {
 	}
 
 	/**
-	 * Decodes the messages.
+	 * Decodes the messages using the provided {@link TempFileContext temporary file context}.
 	 */
+	public static MultiMessage decode(ByteArray encodedMessages, TempFileContext tempFileContext) throws IOException {
+		if(encodedMessages.size == 0) return EMPTY_MULTI_MESSAGE;
+
+		DataInputStream in = new DataInputStream(new AoByteArrayInputStream(encodedMessages.array));
+		try {
+			int totalRead = 0;
+			final int size = in.readInt();
+			totalRead += 4;
+			List<Message> decodedMessages = new ArrayList<Message>(size);
+			for(int i=0; i<size; i++) {
+				MessageType type = MessageType.getFromTypeByte(in.readByte());
+				totalRead++;
+				final int capacity = in.readInt();
+				totalRead += 4;
+				byte[] encodedMessage = new byte[capacity];
+				in.readFully(encodedMessage, 0, capacity);
+				totalRead += capacity;
+				decodedMessages.add(type.decode(new ByteArray(encodedMessage, capacity), tempFileContext));
+			}
+			if(totalRead != encodedMessages.size) throw new IllegalArgumentException("totalRead != encodedMessages.size");
+			return new MultiMessage(Collections.unmodifiableList(decodedMessages));
+		} finally {
+			in.close();
+		}
+	}
+
+	/**
+	 * Decodes the messages, possibly using temporary files with {@link File#deleteOnExit()}.
+	 *
+	 * @see  #decode(com.aoindustries.messaging.ByteArray, com.aoindustries.tempfiles.TempFileContext)
+	 *
+	 * @deprecated  Please use {@link TempFileContext}
+	 *              as {@link File#deleteOnExit()} is prone to memory leaks in long-running applications.
+	 */
+	@Deprecated
 	public static MultiMessage decode(ByteArray encodedMessages) throws IOException {
 		if(encodedMessages.size == 0) return EMPTY_MULTI_MESSAGE;
 

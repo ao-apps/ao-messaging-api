@@ -1,6 +1,6 @@
 /*
  * ao-messaging-api - Asynchronous bidirectional messaging over various protocols API.
- * Copyright (C) 2014, 2015, 2016  AO Industries, Inc.
+ * Copyright (C) 2014, 2015, 2016, 2017  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -22,6 +22,8 @@
  */
 package com.aoindustries.messaging;
 
+import com.aoindustries.tempfiles.TempFileContext;
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -41,11 +43,23 @@ public enum MessageType {
 		}
 
 		@Override
+		public ByteArrayMessage decode(String encodedMessage, TempFileContext tempFileContext) {
+			return ByteArrayMessage.decode(encodedMessage);
+		}
+
+		@Override
+		@Deprecated
 		public ByteArrayMessage decode(String encodedMessage) {
 			return ByteArrayMessage.decode(encodedMessage);
 		}
 
 		@Override
+		public ByteArrayMessage decode(ByteArray encodedMessage, TempFileContext tempFileContext) {
+			return new ByteArrayMessage(encodedMessage);
+		}
+
+		@Override
+		@Deprecated
 		public ByteArrayMessage decode(ByteArray encodedMessage) {
 			return new ByteArrayMessage(encodedMessage);
 		}
@@ -62,11 +76,29 @@ public enum MessageType {
 		}
 
 		@Override
+		public FileMessage decode(String encodedMessage, TempFileContext tempFileContext) throws IOException {
+			return FileMessage.decode(
+				encodedMessage,
+				tempFileContext.createTempFile("FileMessage.").getFile()
+			);
+		}
+
+		@Override
+		@Deprecated
 		public FileMessage decode(String encodedMessage) throws IOException {
 			return FileMessage.decode(encodedMessage);
 		}
 
 		@Override
+		public FileMessage decode(ByteArray encodedMessage, TempFileContext tempFileContext) throws IOException {
+			return FileMessage.decode(
+				encodedMessage,
+				tempFileContext.createTempFile("FileMessage.").getFile()
+			);
+		}
+
+		@Override
+		@Deprecated
 		public FileMessage decode(ByteArray encodedMessage) throws IOException {
 			return FileMessage.decode(encodedMessage);
 		}
@@ -83,11 +115,23 @@ public enum MessageType {
 		}
 
 		@Override
+		public StringMessage decode(String encodedMessage, TempFileContext tempFileContext) {
+			return new StringMessage(encodedMessage);
+		}
+
+		@Override
+		@Deprecated
 		public StringMessage decode(String encodedMessage) {
 			return new StringMessage(encodedMessage);
 		}
 
 		@Override
+		public StringMessage decode(ByteArray encodedMessage, TempFileContext tempFileContext) {
+			return StringMessage.decode(encodedMessage);
+		}
+
+		@Override
+		@Deprecated
 		public StringMessage decode(ByteArray encodedMessage) {
 			return StringMessage.decode(encodedMessage);
 		}
@@ -104,11 +148,23 @@ public enum MessageType {
 		}
 
 		@Override
+		public MultiMessage decode(String encodedMessage, TempFileContext tempFileContext) throws IOException {
+			return MultiMessage.decode(encodedMessage, tempFileContext);
+		}
+
+		@Override
+		@Deprecated
 		public MultiMessage decode(String encodedMessage) throws IOException {
 			return MultiMessage.decode(encodedMessage);
 		}
 
 		@Override
+		public MultiMessage decode(ByteArray encodedMessage, TempFileContext tempFileContext) throws IOException {
+			return MultiMessage.decode(encodedMessage, tempFileContext);
+		}
+
+		@Override
+		@Deprecated
 		public MultiMessage decode(ByteArray encodedMessage) throws IOException {
 			return MultiMessage.decode(encodedMessage);
 		}
@@ -139,12 +195,34 @@ public enum MessageType {
 	abstract public char getTypeChar();
 
 	/**
-	 * Constructs a message of this type from its string encoding.
+	 * Constructs a message of this type from its string encoding using the provided {@link TempFileContext temporary file context}.
 	 */
+	abstract public Message decode(String encodedMessage, TempFileContext tempFileContext) throws IOException;
+
+	/**
+	 * Constructs a message of this type from its string encoding, possibly using temporary files with {@link File#deleteOnExit()}.
+	 *
+	 * @see  #decode(java.lang.String, com.aoindustries.tempfiles.TempFileContext)
+	 *
+	 * @deprecated  Please use {@link TempFileContext}
+	 *              as {@link File#deleteOnExit()} is prone to memory leaks in long-running applications.
+	 */
+	@Deprecated
 	abstract public Message decode(String encodedMessage) throws IOException;
 
 	/**
-	 * Constructs a message of this type from its byte array encoding.
+	 * Constructs a message of this type from its byte array encoding using the provided {@link TempFileContext temporary file context}.
 	 */
+	abstract public Message decode(ByteArray encodedMessage, TempFileContext tempFileContext) throws IOException;
+
+	/**
+	 * Constructs a message of this type from its byte array encoding, possibly using temporary files with {@link File#deleteOnExit()}.
+	 *
+	 * @see  #decode(com.aoindustries.messaging.ByteArray, com.aoindustries.tempfiles.TempFileContext)
+	 *
+	 * @deprecated  Please use {@link TempFileContext}
+	 *              as {@link File#deleteOnExit()} is prone to memory leaks in long-running applications.
+	 */
+	@Deprecated
 	abstract public Message decode(ByteArray encodedMessage) throws IOException;
 }

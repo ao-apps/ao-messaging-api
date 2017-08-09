@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+	<?xml version="1.0" encoding="UTF-8"?>
 <!--
 ao-messaging-api - Asynchronous bidirectional messaging over various protocols API.
 Copyright (C) 2016, 2017  AO Industries, Inc.
@@ -37,7 +37,7 @@ along with ao-messaging-api.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2016-10-29T20:37:42-0500"
-		dateModified="2017-07-20T02:20:06-0500"
+		dateModified="2017-08-09T03:03:38-0500"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-messaging-api:pom.version}" />
@@ -52,7 +52,15 @@ along with ao-messaging-api.  If not, see <http://www.gnu.org/licenses />.
 				groupId="@{documented.groupId}"
 				artifactId="@{documented.artifactId}"
 				scmUrl="@{documented.scm.url}"
-			/>
+			>
+				<ul>
+					<li>
+						Deprecated uses of <ao:a href="@{javac.link.javaApi}java/io/File#deleteOnExit()">File.deleteOnExit()</ao:a>
+						in favor of new <ao:a href="https://aoindustries.com/ao-tempfiles/apidocs/com/aoindustries/tempfiles/TempFileContext.html">TempFileContext</ao:a>
+						that does not suffer from a memory leak in long-running applications.
+					</li>
+				</ul>
+			</changelog:release>
 		</c:if>
 
 		<changelog:release

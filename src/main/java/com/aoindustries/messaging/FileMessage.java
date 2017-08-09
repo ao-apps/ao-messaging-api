@@ -1,6 +1,6 @@
 /*
  * ao-messaging-api - Asynchronous bidirectional messaging over various protocols API.
- * Copyright (C) 2014, 2015, 2016  AO Industries, Inc.
+ * Copyright (C) 2014, 2015, 2016, 2017  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -25,6 +25,7 @@ package com.aoindustries.messaging;
 import com.aoindustries.io.AoByteArrayOutputStream;
 import com.aoindustries.io.FileUtils;
 import com.aoindustries.io.IoUtils;
+import com.aoindustries.tempfiles.TempFileContext;
 import com.aoindustries.util.Base64Coder;
 import com.aoindustries.util.WrappedException;
 import java.io.File;
@@ -40,8 +41,32 @@ import java.io.OutputStream;
 public class FileMessage implements Message {
 
 	/**
-	 * base-64 decodes the message into a temp file.
+	 * base-64 decodes the message into the provided file.
+	 *
+	 * @see #decode(com.aoindustries.messaging.ByteArray, java.io.File)
 	 */
+	public static FileMessage decode(String encodedMessage, File file) throws IOException {
+		return decode(
+			encodedMessage.isEmpty()
+			? ByteArray.EMPTY_BYTE_ARRAY
+			: new ByteArray(
+				Base64Coder.decode(
+					encodedMessage
+				)
+			),
+			file
+		);
+	}
+
+	/**
+	 * base-64 decodes the message into a temp file.
+	 *
+	 * @see  #decode(java.lang.String, java.io.File)
+	 *
+	 * @deprecated  Please use {@link TempFileContext}
+	 *              as {@link File#deleteOnExit()} is prone to memory leaks in long-running applications.
+	 */
+	@Deprecated
 	public static FileMessage decode(String encodedMessage) throws IOException {
 		return decode(
 			encodedMessage.isEmpty()
@@ -55,11 +80,11 @@ public class FileMessage implements Message {
 	}
 
 	/**
-	 * Restores this message into a temp file.
+	 * Restores this message into the provided file.
+	 *
+	 * @see  #decode(java.lang.String, java.io.File)
 	 */
-	public static FileMessage decode(ByteArray encodedMessage) throws IOException {
-		File file = File.createTempFile("FileMessage.", null);
-		file.deleteOnExit();
+	public static FileMessage decode(ByteArray encodedMessage, File file) throws IOException {
 		OutputStream out = new FileOutputStream(file);
 		try {
 			out.write(encodedMessage.array, 0, encodedMessage.size);
@@ -67,6 +92,21 @@ public class FileMessage implements Message {
 			out.close();
 		}
 		return new FileMessage(true, file);
+	}
+
+	/**
+	 * Restores this message into a temp file.
+	 *
+	 * @see  #decode(com.aoindustries.messaging.ByteArray, java.io.File)
+	 *
+	 * @deprecated  Please use {@link TempFileContext}
+	 *              as {@link File#deleteOnExit()} is prone to memory leaks in long-running applications.
+	 */
+	@Deprecated
+	public static FileMessage decode(ByteArray encodedMessage) throws IOException {
+		File file = File.createTempFile("FileMessage.", null);
+		file.deleteOnExit();
+		return decode(encodedMessage, file);
 	}
 
 	private final boolean isTemp;
