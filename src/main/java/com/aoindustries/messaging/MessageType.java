@@ -1,6 +1,6 @@
 /*
  * ao-messaging-api - Asynchronous bidirectional messaging over various protocols API.
- * Copyright (C) 2014, 2015, 2016, 2017  AO Industries, Inc.
+ * Copyright (C) 2014, 2015, 2016, 2017, 2018  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -77,6 +77,7 @@ public enum MessageType {
 
 		@Override
 		public FileMessage decode(String encodedMessage, TempFileContext tempFileContext) throws IOException {
+			if(tempFileContext == null) throw new IllegalStateException("No TempFileContext");
 			return FileMessage.decode(
 				encodedMessage,
 				tempFileContext.createTempFile("FileMessage.").getFile()
@@ -91,6 +92,7 @@ public enum MessageType {
 
 		@Override
 		public FileMessage decode(ByteArray encodedMessage, TempFileContext tempFileContext) throws IOException {
+			if(tempFileContext == null) throw new IllegalStateException("No TempFileContext");
 			return FileMessage.decode(
 				encodedMessage,
 				tempFileContext.createTempFile("FileMessage.").getFile()
