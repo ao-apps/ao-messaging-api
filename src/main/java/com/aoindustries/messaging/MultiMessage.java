@@ -1,6 +1,6 @@
 /*
  * ao-messaging-api - Asynchronous bidirectional messaging over various protocols API.
- * Copyright (C) 2014, 2015, 2016, 2017  AO Industries, Inc.
+ * Copyright (C) 2014, 2015, 2016, 2017, 2019  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -57,7 +57,7 @@ public class MultiMessage implements Message {
 		int pos = encodedMessages.indexOf(DELIMITER);
 		if(pos == -1) throw new IllegalArgumentException("Delimiter not found");
 		final int size = Integer.parseInt(encodedMessages.substring(0, pos++));
-		List<Message> decodedMessages = new ArrayList<Message>(size);
+		List<Message> decodedMessages = new ArrayList<>(size);
 		for(int i=0; i<size; i++) {
 			MessageType type = MessageType.getFromTypeChar(encodedMessages.charAt(pos++));
 			int nextPos = encodedMessages.indexOf(DELIMITER, pos);
@@ -85,7 +85,7 @@ public class MultiMessage implements Message {
 		int pos = encodedMessages.indexOf(DELIMITER);
 		if(pos == -1) throw new IllegalArgumentException("Delimiter not found");
 		final int size = Integer.parseInt(encodedMessages.substring(0, pos++));
-		List<Message> decodedMessages = new ArrayList<Message>(size);
+		List<Message> decodedMessages = new ArrayList<>(size);
 		for(int i=0; i<size; i++) {
 			MessageType type = MessageType.getFromTypeChar(encodedMessages.charAt(pos++));
 			int nextPos = encodedMessages.indexOf(DELIMITER, pos);
@@ -104,12 +104,11 @@ public class MultiMessage implements Message {
 	public static MultiMessage decode(ByteArray encodedMessages, TempFileContext tempFileContext) throws IOException {
 		if(encodedMessages.size == 0) return EMPTY_MULTI_MESSAGE;
 
-		DataInputStream in = new DataInputStream(new AoByteArrayInputStream(encodedMessages.array));
-		try {
+		try (DataInputStream in = new DataInputStream(new AoByteArrayInputStream(encodedMessages.array))) {
 			int totalRead = 0;
 			final int size = in.readInt();
 			totalRead += 4;
-			List<Message> decodedMessages = new ArrayList<Message>(size);
+			List<Message> decodedMessages = new ArrayList<>(size);
 			for(int i=0; i<size; i++) {
 				MessageType type = MessageType.getFromTypeByte(in.readByte());
 				totalRead++;
@@ -122,8 +121,6 @@ public class MultiMessage implements Message {
 			}
 			if(totalRead != encodedMessages.size) throw new IllegalArgumentException("totalRead != encodedMessages.size");
 			return new MultiMessage(Collections.unmodifiableList(decodedMessages));
-		} finally {
-			in.close();
 		}
 	}
 
@@ -139,12 +136,11 @@ public class MultiMessage implements Message {
 	public static MultiMessage decode(ByteArray encodedMessages) throws IOException {
 		if(encodedMessages.size == 0) return EMPTY_MULTI_MESSAGE;
 
-		DataInputStream in = new DataInputStream(new AoByteArrayInputStream(encodedMessages.array));
-		try {
+		try (DataInputStream in = new DataInputStream(new AoByteArrayInputStream(encodedMessages.array))) {
 			int totalRead = 0;
 			final int size = in.readInt();
 			totalRead += 4;
-			List<Message> decodedMessages = new ArrayList<Message>(size);
+			List<Message> decodedMessages = new ArrayList<>(size);
 			for(int i=0; i<size; i++) {
 				MessageType type = MessageType.getFromTypeByte(in.readByte());
 				totalRead++;
@@ -157,8 +153,6 @@ public class MultiMessage implements Message {
 			}
 			if(totalRead != encodedMessages.size) throw new IllegalArgumentException("totalRead != encodedMessages.size");
 			return new MultiMessage(Collections.unmodifiableList(decodedMessages));
-		} finally {
-			in.close();
 		}
 	}
 
@@ -228,8 +222,7 @@ public class MultiMessage implements Message {
 
 		AoByteArrayOutputStream bout = new AoByteArrayOutputStream();
 		try {
-			DataOutputStream out = new DataOutputStream(bout);
-			try {
+			try (DataOutputStream out = new DataOutputStream(bout)) {
 				out.writeInt(size);
 				int count = 0;
 				for(Message message : messages) {
@@ -241,8 +234,6 @@ public class MultiMessage implements Message {
 					out.write(byteArray.array, 0, capacity);
 				}
 				if(count != size) throw new ConcurrentModificationException();
-			} finally {
-				out.close();
 			}
 		} finally {
 			bout.close();

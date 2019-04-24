@@ -1,6 +1,6 @@
 /*
  * ao-messaging-api - Asynchronous bidirectional messaging over various protocols API.
- * Copyright (C) 2014, 2015, 2016, 2017  AO Industries, Inc.
+ * Copyright (C) 2014, 2015, 2016, 2017, 2019  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -38,31 +38,22 @@ public class ByteArrayMessageTest {
 
 	@Test
 	public void testEncodeAndDecode() throws IOException {
-		TempFileContext tempFileContext = new TempFileContext();
-		try {
+		try (TempFileContext tempFileContext = new TempFileContext()) {
 			for(int i=0; i<100; i++) {
 				int len = random.nextInt(10000);
 				byte[] bytes = new byte[len + random.nextInt(10)];
 				random.nextBytes(bytes);
 
-				ByteArrayMessage original = new ByteArrayMessage(bytes);
-				try {
+				try (ByteArrayMessage original = new ByteArrayMessage(bytes)) {
 					// Encode to String
 					String encodedString = original.encodeAsString();
 
 					// Decode back to message
-					ByteArrayMessage decoded = (ByteArrayMessage)MessageType.BYTE_ARRAY.decode(encodedString, tempFileContext);
-					try {
+					try (ByteArrayMessage decoded = (ByteArrayMessage)MessageType.BYTE_ARRAY.decode(encodedString, tempFileContext)) {
 						assertEquals(original, decoded);
-					} finally {
-						decoded.close();
 					}
-				} finally {
-					original.close();
 				}
 			}
-		} finally {
-			tempFileContext.close();
 		}
 	}
 }

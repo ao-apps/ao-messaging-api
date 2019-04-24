@@ -1,6 +1,6 @@
 /*
  * ao-messaging-api - Asynchronous bidirectional messaging over various protocols API.
- * Copyright (C) 2014, 2015, 2016, 2017  AO Industries, Inc.
+ * Copyright (C) 2014, 2015, 2016, 2017, 2019  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -85,11 +85,8 @@ public class FileMessage implements Message {
 	 * @see  #decode(java.lang.String, java.io.File)
 	 */
 	public static FileMessage decode(ByteArray encodedMessage, File file) throws IOException {
-		OutputStream out = new FileOutputStream(file);
-		try {
+		try (OutputStream out = new FileOutputStream(file)) {
 			out.write(encodedMessage.array, 0, encodedMessage.size);
-		} finally {
-			out.close();
 		}
 		return new FileMessage(true, file);
 	}
@@ -166,8 +163,7 @@ public class FileMessage implements Message {
 	@Override
 	public ByteArray encodeAsByteArray() throws IOException {
 		long len = file.length();
-		InputStream in = new FileInputStream(file);
-		try {
+		try (InputStream in = new FileInputStream(file)) {
 			AoByteArrayOutputStream bout = new AoByteArrayOutputStream(len > 0 && len <= Integer.MAX_VALUE ? (int)len : 32);
 			try {
 				IoUtils.copy(in, bout);
@@ -175,8 +171,6 @@ public class FileMessage implements Message {
 				bout.close();
 			}
 			return new ByteArray(bout.getInternalByteArray(), bout.size());
-		} finally {
-			in.close();
 		}
 	}
 
