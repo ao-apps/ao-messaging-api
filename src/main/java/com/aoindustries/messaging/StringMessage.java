@@ -35,7 +35,7 @@ public class StringMessage implements Message {
 	private static final Charset CHARSET = StandardCharsets.UTF_8;
 
 	/**
-	 * UTF-8 decodes the message.
+	 * {@link StandardCharsets#UTF_8} decodes the message.
 	 */
 	public static StringMessage decode(ByteArray encodedMessage) {
 		if(encodedMessage.size == 0) return EMPTY_STRING_MESSAGE;
@@ -82,7 +82,7 @@ public class StringMessage implements Message {
 	}
 
 	/**
-	 * UTF-8 encodes the message.
+	 * {@link StandardCharsets#UTF_8} encodes the message.
 	 */
 	@Override
 	public ByteArray encodeAsByteArray() {
