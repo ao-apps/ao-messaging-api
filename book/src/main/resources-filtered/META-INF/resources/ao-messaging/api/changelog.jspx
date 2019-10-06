@@ -36,7 +36,7 @@ along with ao-messaging-api.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2016-10-29T20:37:42-0500"
-		dateModified="2019-08-16T23:25:47-0500"
+		dateModified="2019-10-05T19:31:45-0500"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-messaging-api:pom.version}" />
@@ -51,12 +51,21 @@ along with ao-messaging-api.  If not, see <http://www.gnu.org/licenses />.
 				groupId="@{documented.groupId}"
 				artifactId="@{documented.artifactId}"
 				scmUrl="@{documented.scm.url}"
-			>
-				<ul>
-					<li>Using <code>java.nio.charset.StandardCharsets</code> instead of <code>"UTF-8"</code>.</li>
-				</ul>
-			</changelog:release>
+			/>
 		</c:if>
+
+		<changelog:release
+			projectName="@{documented.name}"
+			version="1.2.0"
+			datePublished="2019-10-05T19:31:45-0500"
+			groupId="@{documented.groupId}"
+			artifactId="@{documented.artifactId}"
+			scmUrl="@{documented.scm.url}"
+		>
+			<ul>
+				<li>Using <code>java.nio.charset.StandardCharsets</code> instead of <code>"UTF-8"</code>.</li>
+			</ul>
+		</changelog:release>
 
 		<changelog:release
 			projectName="@{documented.name}"
