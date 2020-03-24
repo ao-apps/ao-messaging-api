@@ -1,6 +1,6 @@
 /*
  * ao-messaging-api - Asynchronous bidirectional messaging over various protocols API.
- * Copyright (C) 2014, 2015, 2016, 2017, 2019  AO Industries, Inc.
+ * Copyright (C) 2014, 2015, 2016, 2017, 2019, 2020  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -22,10 +22,10 @@
  */
 package com.aoindustries.messaging;
 
+import com.aoindustries.collections.AoCollections;
 import com.aoindustries.io.AoByteArrayInputStream;
 import com.aoindustries.io.AoByteArrayOutputStream;
 import com.aoindustries.tempfiles.TempFileContext;
-import com.aoindustries.util.AoCollections;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;

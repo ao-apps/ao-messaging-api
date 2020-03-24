@@ -1,6 +1,6 @@
 /*
  * ao-messaging-api - Asynchronous bidirectional messaging over various protocols API.
- * Copyright (C) 2014, 2015, 2016  AO Industries, Inc.
+ * Copyright (C) 2014, 2015, 2016, 2020  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -22,14 +22,15 @@
  */
 package com.aoindustries.messaging;
 
-import com.aoindustries.util.AoArrays;
+import com.aoindustries.collections.AoArrays;
+import com.aoindustries.lang.EmptyArrays;
 
 /**
  * Encapsulates a byte[] and the number of bytes used.
  */
 public class ByteArray {
 
-	public static final ByteArray EMPTY_BYTE_ARRAY = new ByteArray(AoArrays.EMPTY_BYTE_ARRAY);
+	public static final ByteArray EMPTY_BYTE_ARRAY = new ByteArray(EmptyArrays.EMPTY_BYTE_ARRAY);
 
 	public final byte[] array;
 	public final int size;
