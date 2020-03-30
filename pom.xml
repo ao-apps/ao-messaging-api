@@ -44,7 +44,6 @@ along with ao-messaging-api.  If not, see <http://www.gnu.org/licenses />.
 	<inceptionYear>2014</inceptionYear>
 
 	<scm>
-		<!-- Can't inherit due to multi-module -->
 		<connection>scm:git:git://github.com/aoindustries/ao-messaging-api.git</connection>
 		<developerConnection>scm:git:git@github.com:aoindustries/ao-messaging-api.git</developerConnection>
 		<url>https://github.com/aoindustries/ao-messaging-api</url>
