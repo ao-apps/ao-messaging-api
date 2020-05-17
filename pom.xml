@@ -71,6 +71,8 @@ along with ao-messaging-api.  If not, see <http://www.gnu.org/licenses />.
 								<link>https://aoindustries.com/ao-lang/apidocs/</link>
 								<link>https://aoindustries.com/ao-tempfiles/apidocs/</link>
 								<link>https://aoindustries.com/aocode-public/apidocs/</link>
+								<!-- Test Direct -->
+								<link>https://junit.org/junit4/javadoc/latest/</link>
 							</links>
 						</configuration>
 					</plugin>
