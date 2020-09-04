@@ -43,11 +43,7 @@ public class MultiMessage implements Message {
 
 	private static final char DELIMITER = ',';
 
-	public static final MultiMessage EMPTY_MULTI_MESSAGE;
-	static {
-		Collection<? extends Message> empty = Collections.emptyList();
-		EMPTY_MULTI_MESSAGE = new MultiMessage(empty);
-	}
+	public static final MultiMessage EMPTY_MULTI_MESSAGE = new MultiMessage(Collections.emptyList(), null);
 
 	/**
 	 * Decodes the messages using the provided {@link TempFileContext temporary file context}.
@@ -68,7 +64,7 @@ public class MultiMessage implements Message {
 			decodedMessages.add(type.decode(encodedMessages.substring(nextPos, pos), tempFileContext));
 		}
 		if(pos != encodedMessages.length()) throw new IllegalArgumentException("pos != encodedMessages.length()");
-		return new MultiMessage(Collections.unmodifiableList(decodedMessages));
+		return new MultiMessage(AoCollections.optimalUnmodifiableList(decodedMessages), null);
 	}
 
 	/**
@@ -96,7 +92,7 @@ public class MultiMessage implements Message {
 			decodedMessages.add(type.decode(encodedMessages.substring(nextPos, pos)));
 		}
 		if(pos != encodedMessages.length()) throw new IllegalArgumentException("pos != encodedMessages.length()");
-		return new MultiMessage(Collections.unmodifiableList(decodedMessages));
+		return new MultiMessage(AoCollections.optimalUnmodifiableList(decodedMessages), null);
 	}
 
 	/**
@@ -121,7 +117,7 @@ public class MultiMessage implements Message {
 				decodedMessages.add(type.decode(new ByteArray(encodedMessage, capacity), tempFileContext));
 			}
 			if(totalRead != encodedMessages.size) throw new IllegalArgumentException("totalRead != encodedMessages.size");
-			return new MultiMessage(Collections.unmodifiableList(decodedMessages));
+			return new MultiMessage(AoCollections.optimalUnmodifiableList(decodedMessages), null);
 		}
 	}
 
@@ -153,19 +149,29 @@ public class MultiMessage implements Message {
 				decodedMessages.add(type.decode(new ByteArray(encodedMessage, capacity)));
 			}
 			if(totalRead != encodedMessages.size) throw new IllegalArgumentException("totalRead != encodedMessages.size");
-			return new MultiMessage(Collections.unmodifiableList(decodedMessages));
+			return new MultiMessage(AoCollections.optimalUnmodifiableList(decodedMessages), null);
 		}
 	}
 
-	private final Collection<? extends Message> messages;
+	private final Collection<? extends Message> unmodifiableMessages;
 
+	/**
+	 * @param  messages  The unmodifiable messages, no defensive copy if performed
+	 */
+	private MultiMessage(Collection<? extends Message> unmodifiableMessages, Void unused) {
+		this.unmodifiableMessages = unmodifiableMessages;
+	}
+
+	/**
+	 * @param  messages  The messages or {@code null} for none, defensive copy if performed
+	 */
 	public MultiMessage(Collection<? extends Message> messages) {
-		this.messages = messages;
+		this((messages == null) ? Collections.emptyList() : AoCollections.unmodifiableCopyCollection(messages), null);
 	}
 
 	@Override
 	public String toString() {
-		return "MultiMessage(" + messages.size() + ")";
+		return "MultiMessage(" + unmodifiableMessages.size() + ")";
 	}
 
 	@Override
@@ -173,12 +179,12 @@ public class MultiMessage implements Message {
 		if(this == o) return true;
 		if(!(o instanceof MultiMessage)) return false;
 		MultiMessage other = (MultiMessage)o;
-		return AoCollections.equals(messages, other.messages);
+		return AoCollections.equals(unmodifiableMessages, other.unmodifiableMessages);
 	}
 
 	@Override
 	public int hashCode() {
-		return AoCollections.hashCode(messages);
+		return AoCollections.hashCode(unmodifiableMessages);
 	}
 
 	@Override
@@ -191,13 +197,13 @@ public class MultiMessage implements Message {
 	 */
 	@Override
 	public String encodeAsString() throws IOException {
-		final int size = messages.size();
+		final int size = unmodifiableMessages.size();
 		if(size == 0) return "";
 
 		StringBuilder sb = new StringBuilder();
 		sb.append(size).append(DELIMITER);
 		int count = 0;
-		for(Message message : messages) {
+		for(Message message : unmodifiableMessages) {
 			count++;
 			String str = message.encodeAsString();
 			sb
@@ -218,7 +224,7 @@ public class MultiMessage implements Message {
 	 */
 	@Override
 	public ByteArray encodeAsByteArray() throws IOException {
-		final int size = messages.size();
+		final int size = unmodifiableMessages.size();
 		if(size == 0) return ByteArray.EMPTY_BYTE_ARRAY;
 
 		AoByteArrayOutputStream bout = new AoByteArrayOutputStream();
@@ -226,7 +232,7 @@ public class MultiMessage implements Message {
 			try (DataOutputStream out = new DataOutputStream(bout)) {
 				out.writeInt(size);
 				int count = 0;
-				for(Message message : messages) {
+				for(Message message : unmodifiableMessages) {
 					count++;
 					ByteArray byteArray = message.encodeAsByteArray();
 					final int capacity = byteArray.size;
@@ -247,12 +253,16 @@ public class MultiMessage implements Message {
 	 */
 	@Override
 	public void close() throws IOException {
-		for(Message message : messages) {
+		for(Message message : unmodifiableMessages) {
 			message.close();
 		}
 	}
 
+	/**
+	 * @return  The messages or empty list for none
+	 */
+	@SuppressWarnings("ReturnOfCollectionOrArrayField") // Returning unmodifiable
 	public Collection<? extends Message> getMessages() {
-		return messages;
+		return unmodifiableMessages;
 	}
 }
