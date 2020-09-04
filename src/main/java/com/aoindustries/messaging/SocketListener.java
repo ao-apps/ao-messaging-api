@@ -1,6 +1,6 @@
 /*
  * ao-messaging-api - Asynchronous bidirectional messaging over various protocols API.
- * Copyright (C) 2014, 2015, 2016  AO Industries, Inc.
+ * Copyright (C) 2014, 2015, 2016, 2020  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -52,10 +52,10 @@ public interface SocketListener {
 	void onMessages(Socket socket, List<? extends Message> messages);
 
 	/**
-	 * Called when an error occurs.  The socket is closed
-	 * after the first error.
+	 * Called when an error occurs.  The socket is closed after the first error.
+	 * All {@link Throwable} except {@link ThreadDeath} are caught.
 	 */
-	void onError(Socket socket, Exception exc);
+	void onError(Socket socket, Throwable t);
 
 	/**
 	 * Called when a new remote address is seen.
