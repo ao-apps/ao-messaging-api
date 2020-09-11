@@ -40,7 +40,6 @@ public interface SocketContextListener {
 
 	/**
 	 * Called when an error occurs.  The socket is closed after the first error.
-	 * All {@link Throwable} except {@link ThreadDeath} will be caught.
 	 */
 	void onError(SocketContext socketContext, Throwable t);
 
