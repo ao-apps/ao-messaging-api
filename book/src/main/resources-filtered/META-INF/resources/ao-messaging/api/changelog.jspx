@@ -37,7 +37,7 @@ along with ao-messaging-api.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2016-10-29T20:37:42-0500"
-		dateModified="2020-09-11T13:43:12-05:00"
+		dateModified="2020-11-13T12:20:57-06:00"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-messaging-api:pom.version}" />
@@ -61,6 +61,7 @@ along with ao-messaging-api.  If not, see <http://www.gnu.org/licenses />.
 						<code>OutOfMemoryError</code>, being silently lost.
 					</li>
 					<li><code>MultiMessage</code> public constructor now performs defensive copy of messages.</li>
+					<li>Temporary files are now created with more secure default permissions.</li>
 				</ul>
 			</changelog:release>
 		</c:if>

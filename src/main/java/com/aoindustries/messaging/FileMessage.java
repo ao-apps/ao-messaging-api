@@ -34,6 +34,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
 
 /**
  * A message that is a file.
@@ -101,7 +102,7 @@ public class FileMessage implements Message {
 	 */
 	@Deprecated
 	public static FileMessage decode(ByteArray encodedMessage) throws IOException {
-		File file = File.createTempFile("FileMessage.", null);
+		File file = Files.createTempFile("FileMessage.", null).toFile();
 		file.deleteOnExit();
 		return decode(encodedMessage, file);
 	}
