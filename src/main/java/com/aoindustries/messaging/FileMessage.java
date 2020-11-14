@@ -179,7 +179,7 @@ public class FileMessage implements Message {
 	public void close() throws IOException {
 		synchronized(lock) {
 			if(isTemp && file != null) {
-				FileUtils.delete(file);
+				Files.delete(file.toPath());
 				file = null;
 			}
 		}
