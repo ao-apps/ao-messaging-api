@@ -22,7 +22,6 @@
  */
 package com.aoindustries.messaging;
 
-import com.aoindustries.exception.WrappedException;
 import com.aoindustries.io.AoByteArrayOutputStream;
 import com.aoindustries.io.FileUtils;
 import com.aoindustries.io.IoUtils;
@@ -34,6 +33,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UncheckedIOException;
 import java.nio.file.Files;
 
 /**
@@ -133,7 +133,7 @@ public class FileMessage implements Message {
 		try {
 			return FileUtils.contentEquals(file, other.file);
 		} catch(IOException e) {
-			throw new WrappedException(e);
+			throw new UncheckedIOException(e);
 		}
 	}
 
@@ -142,7 +142,7 @@ public class FileMessage implements Message {
 		try {
 			return FileUtils.contentHashCode(file);
 		} catch(IOException e) {
-			throw new WrappedException(e);
+			throw new UncheckedIOException(e);
 		}
 	}
 
