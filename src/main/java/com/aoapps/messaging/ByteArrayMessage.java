@@ -1,6 +1,6 @@
 /*
  * ao-messaging-api - Asynchronous bidirectional messaging over various protocols API.
- * Copyright (C) 2014, 2015, 2016  AO Industries, Inc.
+ * Copyright (C) 2014, 2015, 2016, 2021  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -20,9 +20,9 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with ao-messaging-api.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.aoindustries.messaging;
+package com.aoapps.messaging;
 
-import com.aoindustries.util.Base64Coder;
+import com.aoapps.hodgepodge.util.Base64Coder;
 
 /**
  * A message that is a byte[].

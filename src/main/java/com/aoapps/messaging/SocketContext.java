@@ -20,10 +20,10 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with ao-messaging-api.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.aoindustries.messaging;
+package com.aoapps.messaging;
 
-import com.aoindustries.concurrent.ConcurrentListenerManager;
-import com.aoindustries.security.Identifier;
+import com.aoapps.concurrent.ConcurrentListenerManager;
+import com.aoapps.security.Identifier;
 import java.io.Closeable;
 import java.io.IOException;
 import java.util.Map;

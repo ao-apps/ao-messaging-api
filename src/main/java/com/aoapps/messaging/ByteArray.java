@@ -1,6 +1,6 @@
 /*
  * ao-messaging-api - Asynchronous bidirectional messaging over various protocols API.
- * Copyright (C) 2014, 2015, 2016, 2020  AO Industries, Inc.
+ * Copyright (C) 2014, 2015, 2016, 2020, 2021  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -20,10 +20,10 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with ao-messaging-api.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.aoindustries.messaging;
+package com.aoapps.messaging;
 
-import com.aoindustries.collections.AoArrays;
-import com.aoindustries.lang.EmptyArrays;
+import com.aoapps.collections.AoArrays;
+import com.aoapps.lang.EmptyArrays;
 
 /**
  * Encapsulates a byte[] and the number of bytes used.

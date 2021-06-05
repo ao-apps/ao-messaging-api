@@ -1,6 +1,6 @@
 /*
  * ao-messaging-api - Asynchronous bidirectional messaging over various protocols API.
- * Copyright (C) 2014, 2015, 2016, 2017, 2019, 2020  AO Industries, Inc.
+ * Copyright (C) 2014, 2015, 2016, 2017, 2019, 2020, 2021  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -20,12 +20,12 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with ao-messaging-api.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.aoindustries.messaging;
+package com.aoapps.messaging;
 
-import com.aoindustries.collections.AoCollections;
-import com.aoindustries.io.AoByteArrayInputStream;
-import com.aoindustries.io.AoByteArrayOutputStream;
-import com.aoindustries.tempfiles.TempFileContext;
+import com.aoapps.collections.AoCollections;
+import com.aoapps.lang.io.AoByteArrayInputStream;
+import com.aoapps.lang.io.AoByteArrayOutputStream;
+import com.aoapps.tempfiles.TempFileContext;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -70,7 +70,7 @@ public class MultiMessage implements Message {
 	/**
 	 * Decodes the messages, possibly using temporary files with {@link File#deleteOnExit()}.
 	 *
-	 * @see  #decode(java.lang.String, com.aoindustries.tempfiles.TempFileContext)
+	 * @see  #decode(java.lang.String, com.aoapps.tempfiles.TempFileContext)
 	 *
 	 * @deprecated  Please use {@link TempFileContext}
 	 *              as {@link File#deleteOnExit()} is prone to memory leaks in long-running applications.
@@ -124,7 +124,7 @@ public class MultiMessage implements Message {
 	/**
 	 * Decodes the messages, possibly using temporary files with {@link File#deleteOnExit()}.
 	 *
-	 * @see  #decode(com.aoindustries.messaging.ByteArray, com.aoindustries.tempfiles.TempFileContext)
+	 * @see  #decode(com.aoapps.messaging.ByteArray, com.aoapps.tempfiles.TempFileContext)
 	 *
 	 * @deprecated  Please use {@link TempFileContext}
 	 *              as {@link File#deleteOnExit()} is prone to memory leaks in long-running applications.

@@ -1,6 +1,6 @@
 /*
  * ao-messaging-api - Asynchronous bidirectional messaging over various protocols API.
- * Copyright (C) 2014, 2015, 2016, 2020  AO Industries, Inc.
+ * Copyright (C) 2014, 2015, 2016, 2021  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -20,32 +20,46 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with ao-messaging-api.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.aoindustries.messaging;
+package com.aoapps.messaging;
+
+import java.io.Closeable;
+import java.io.IOException;
 
 /**
- * Receives notification on context events.
- * <p>
- * None of the messages will be triggered concurrently on this listener;
- * however, different listeners may be notified in parallel.
- * </p>
+ * Any type of encapsulated message.
  */
-public interface SocketContextListener {
+public interface Message extends Closeable {
 
 	/**
-	 * Called when a new socket is created, but before it is started.
-	 * This may be used to register a listener on the socket without
-	 * missing any messages.
+	 * Two messages of the same type with the same body must be considered equal.
 	 */
-	void onNewSocket(SocketContext socketContext, Socket newSocket);
+	@Override
+	boolean equals(Object o);
 
 	/**
-	 * Called when an error occurs.  The socket is closed after the first error.
+	 * The hash code must be consistent with equals.
 	 */
-	void onError(SocketContext socketContext, Throwable t);
+	@Override
+	int hashCode();
 
 	/**
-	 * Called when a socket context is closed.
-	 * This will only be called once.
+	 * Gets the message type.
 	 */
-	void onSocketContextClose(SocketContext socketContext);
+	MessageType getMessageType();
+
+	/**
+	 * Gets a String representation of this message.
+	 */
+	String encodeAsString() throws IOException;
+
+	/**
+	 * Gets a binary representation of this message.
+	 */
+	ByteArray encodeAsByteArray() throws IOException;
+
+	/**
+	 * The message should be closed when it is no longer needed.
+	 */
+	@Override
+	void close() throws IOException;
 }

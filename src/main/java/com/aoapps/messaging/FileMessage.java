@@ -1,6 +1,6 @@
 /*
  * ao-messaging-api - Asynchronous bidirectional messaging over various protocols API.
- * Copyright (C) 2014, 2015, 2016, 2017, 2019, 2020  AO Industries, Inc.
+ * Copyright (C) 2014, 2015, 2016, 2017, 2019, 2020, 2021  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -20,13 +20,13 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with ao-messaging-api.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.aoindustries.messaging;
+package com.aoapps.messaging;
 
-import com.aoindustries.io.AoByteArrayOutputStream;
-import com.aoindustries.io.FileUtils;
-import com.aoindustries.io.IoUtils;
-import com.aoindustries.tempfiles.TempFileContext;
-import com.aoindustries.util.Base64Coder;
+import com.aoapps.hodgepodge.util.Base64Coder;
+import com.aoapps.lang.io.AoByteArrayOutputStream;
+import com.aoapps.lang.io.FileUtils;
+import com.aoapps.lang.io.IoUtils;
+import com.aoapps.tempfiles.TempFileContext;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -44,7 +44,7 @@ public class FileMessage implements Message {
 	/**
 	 * base-64 decodes the message into the provided file.
 	 *
-	 * @see #decode(com.aoindustries.messaging.ByteArray, java.io.File)
+	 * @see #decode(com.aoapps.messaging.ByteArray, java.io.File)
 	 */
 	public static FileMessage decode(String encodedMessage, File file) throws IOException {
 		return decode(
@@ -95,7 +95,7 @@ public class FileMessage implements Message {
 	/**
 	 * Restores this message into a temp file.
 	 *
-	 * @see  #decode(com.aoindustries.messaging.ByteArray, java.io.File)
+	 * @see  #decode(com.aoapps.messaging.ByteArray, java.io.File)
 	 *
 	 * @deprecated  Please use {@link TempFileContext}
 	 *              as {@link File#deleteOnExit()} is prone to memory leaks in long-running applications.
