@@ -8,6 +8,12 @@
 
 [![Build](https://github.com/aoindustries/ao-messaging-api/workflows/Build/badge.svg?branch=master)](https://github.com/aoindustries/ao-messaging-api/actions?query=workflow%3ABuild)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.aoapps/ao-messaging-api/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.aoapps/ao-messaging-api)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.aoapps%3Aao-messaging-api&metric=alert_status)](https://sonarcloud.io/dashboard?branch=master&id=com.aoapps%3Aao-messaging-api)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.aoapps%3Aao-messaging-api&metric=ncloc)](https://sonarcloud.io/component_measures?branch=master&id=com.aoapps%3Aao-messaging-api&metric=ncloc)  
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.aoapps%3Aao-messaging-api&metric=reliability_rating)](https://sonarcloud.io/component_measures?branch=master&id=com.aoapps%3Aao-messaging-api&metric=Reliability)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.aoapps%3Aao-messaging-api&metric=security_rating)](https://sonarcloud.io/component_measures?branch=master&id=com.aoapps%3Aao-messaging-api&metric=Security)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.aoapps%3Aao-messaging-api&metric=sqale_rating)](https://sonarcloud.io/component_measures?branch=master&id=com.aoapps%3Aao-messaging-api&metric=Maintainability)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.aoapps%3Aao-messaging-api&metric=coverage)](https://sonarcloud.io/component_measures?branch=master&id=com.aoapps%3Aao-messaging-api&metric=Coverage)
 
 Asynchronous bidirectional messaging over various protocols API.
 
