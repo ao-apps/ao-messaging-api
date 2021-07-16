@@ -7,6 +7,7 @@
 [![license: LGPL v3](https://oss.aoapps.com/ao-badges/license-lgpl-3.0.svg)](https://www.gnu.org/licenses/lgpl-3.0)
 
 [![Build](https://github.com/aoindustries/ao-messaging-api/workflows/Build/badge.svg?branch=master)](https://github.com/aoindustries/ao-messaging-api/actions?query=workflow%3ABuild)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.aoapps/ao-messaging-api/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.aoapps/ao-messaging-api)
 
 Asynchronous bidirectional messaging over various protocols API.
 
