@@ -192,14 +192,14 @@ public enum MessageType {
 		}
 	}
 
-	abstract public byte getTypeByte();
+	public abstract byte getTypeByte();
 
-	abstract public char getTypeChar();
+	public abstract char getTypeChar();
 
 	/**
 	 * Constructs a message of this type from its string encoding using the provided {@link TempFileContext temporary file context}.
 	 */
-	abstract public Message decode(String encodedMessage, TempFileContext tempFileContext) throws IOException;
+	public abstract Message decode(String encodedMessage, TempFileContext tempFileContext) throws IOException;
 
 	/**
 	 * Constructs a message of this type from its string encoding, possibly using temporary files with {@link File#deleteOnExit()}.
@@ -210,12 +210,12 @@ public enum MessageType {
 	 *              as {@link File#deleteOnExit()} is prone to memory leaks in long-running applications.
 	 */
 	@Deprecated
-	abstract public Message decode(String encodedMessage) throws IOException;
+	public abstract Message decode(String encodedMessage) throws IOException;
 
 	/**
 	 * Constructs a message of this type from its byte array encoding using the provided {@link TempFileContext temporary file context}.
 	 */
-	abstract public Message decode(ByteArray encodedMessage, TempFileContext tempFileContext) throws IOException;
+	public abstract Message decode(ByteArray encodedMessage, TempFileContext tempFileContext) throws IOException;
 
 	/**
 	 * Constructs a message of this type from its byte array encoding, possibly using temporary files with {@link File#deleteOnExit()}.
@@ -226,5 +226,5 @@ public enum MessageType {
 	 *              as {@link File#deleteOnExit()} is prone to memory leaks in long-running applications.
 	 */
 	@Deprecated
-	abstract public Message decode(ByteArray encodedMessage) throws IOException;
+	public abstract Message decode(ByteArray encodedMessage) throws IOException;
 }
