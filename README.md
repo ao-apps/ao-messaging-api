@@ -6,7 +6,7 @@
 [![semantic versioning: 2.0.0](https://oss.aoapps.com/ao-badges/semver-2.0.0.svg)](http://semver.org/spec/v2.0.0.html)
 [![license: LGPL v3](https://oss.aoapps.com/ao-badges/license-lgpl-3.0.svg)](https://www.gnu.org/licenses/lgpl-3.0)
 
-[![Build](https://github.com/aoindustries/ao-messaging-api/workflows/Build/badge.svg?branch=master)](https://github.com/aoindustries/ao-messaging-api/actions?query=workflow%3ABuild)
+[![Build](https://github.com/ao-apps/ao-messaging-api/workflows/Build/badge.svg?branch=master)](https://github.com/ao-apps/ao-messaging-api/actions?query=workflow%3ABuild)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.aoapps/ao-messaging-api/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.aoapps/ao-messaging-api)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.aoapps%3Aao-messaging-api&metric=alert_status)](https://sonarcloud.io/dashboard?branch=master&id=com.aoapps%3Aao-messaging-api)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.aoapps%3Aao-messaging-api&metric=ncloc)](https://sonarcloud.io/component_measures?branch=master&id=com.aoapps%3Aao-messaging-api&metric=ncloc)  
@@ -22,7 +22,7 @@ Asynchronous bidirectional messaging over various protocols API.
 * [Changelog](https://oss.aoapps.com/messaging/api/changelog)
 * [API Docs](https://oss.aoapps.com/messaging/api/apidocs/)
 * [Maven Central Repository](https://search.maven.org/artifact/com.aoapps/ao-messaging-api)
-* [GitHub](https://github.com/aoindustries/ao-messaging-api)
+* [GitHub](https://github.com/ao-apps/ao-messaging-api)
 
 ## Contact Us
 For questions or support, please [contact us](https://aoindustries.com/contact):
