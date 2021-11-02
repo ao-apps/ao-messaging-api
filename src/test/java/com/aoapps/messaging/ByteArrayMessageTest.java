@@ -22,6 +22,7 @@
  */
 package com.aoapps.messaging;
 
+import com.aoapps.lang.io.IoUtils;
 import com.aoapps.tempfiles.TempFileContext;
 import java.io.IOException;
 import java.security.SecureRandom;
@@ -34,15 +35,18 @@ public class ByteArrayMessageTest {
 	public ByteArrayMessageTest() {
 	}
 
-	private static final Random random = new SecureRandom();
+	/**
+	 * A fast pseudo-random number generator for non-cryptographic purposes.
+	 */
+	private static final Random fastRandom = new Random(IoUtils.bufferToLong(new SecureRandom().generateSeed(Long.BYTES)));
 
 	@Test
 	public void testEncodeAndDecode() throws IOException {
 		try (TempFileContext tempFileContext = new TempFileContext()) {
 			for(int i=0; i<100; i++) {
-				int len = random.nextInt(10000);
-				byte[] bytes = new byte[len + random.nextInt(10)];
-				random.nextBytes(bytes);
+				int len = fastRandom.nextInt(10000);
+				byte[] bytes = new byte[len + fastRandom.nextInt(10)];
+				fastRandom.nextBytes(bytes);
 
 				try (ByteArrayMessage original = new ByteArrayMessage(bytes)) {
 					// Encode to String
