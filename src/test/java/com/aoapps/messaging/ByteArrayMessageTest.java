@@ -32,9 +32,6 @@ import org.junit.Test;
 
 public class ByteArrayMessageTest {
 
-	public ByteArrayMessageTest() {
-	}
-
 	/**
 	 * A fast pseudo-random number generator for non-cryptographic purposes.
 	 */
