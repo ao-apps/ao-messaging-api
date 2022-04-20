@@ -32,21 +32,21 @@ package com.aoapps.messaging;
  */
 public interface SocketContextListener {
 
-	/**
-	 * Called when a new socket is created, but before it is started.
-	 * This may be used to register a listener on the socket without
-	 * missing any messages.
-	 */
-	void onNewSocket(SocketContext socketContext, Socket newSocket);
+  /**
+   * Called when a new socket is created, but before it is started.
+   * This may be used to register a listener on the socket without
+   * missing any messages.
+   */
+  void onNewSocket(SocketContext socketContext, Socket newSocket);
 
-	/**
-	 * Called when an error occurs.  The socket is closed after the first error.
-	 */
-	void onError(SocketContext socketContext, Throwable t);
+  /**
+   * Called when an error occurs.  The socket is closed after the first error.
+   */
+  void onError(SocketContext socketContext, Throwable t);
 
-	/**
-	 * Called when a socket context is closed.
-	 * This will only be called once.
-	 */
-	void onSocketContextClose(SocketContext socketContext);
+  /**
+   * Called when a socket context is closed.
+   * This will only be called once.
+   */
+  void onSocketContextClose(SocketContext socketContext);
 }

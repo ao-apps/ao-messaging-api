@@ -33,29 +33,29 @@ import org.junit.Test;
 
 public class ByteArrayMessageTest {
 
-	/**
-	 * A fast pseudo-random number generator for non-cryptographic purposes.
-	 */
-	private static final Random fastRandom = new Random(IoUtils.bufferToLong(new SecureRandom().generateSeed(Long.BYTES)));
+  /**
+   * A fast pseudo-random number generator for non-cryptographic purposes.
+   */
+  private static final Random fastRandom = new Random(IoUtils.bufferToLong(new SecureRandom().generateSeed(Long.BYTES)));
 
-	@Test
-	public void testEncodeAndDecode() throws IOException {
-		try (TempFileContext tempFileContext = new TempFileContext()) {
-			for(int i=0; i<100; i++) {
-				int len = fastRandom.nextInt(10000);
-				byte[] bytes = new byte[len + fastRandom.nextInt(10)];
-				fastRandom.nextBytes(bytes);
+  @Test
+  public void testEncodeAndDecode() throws IOException {
+    try (TempFileContext tempFileContext = new TempFileContext()) {
+      for (int i=0; i<100; i++) {
+        int len = fastRandom.nextInt(10000);
+        byte[] bytes = new byte[len + fastRandom.nextInt(10)];
+        fastRandom.nextBytes(bytes);
 
-				try (ByteArrayMessage original = new ByteArrayMessage(bytes)) {
-					// Encode to String
-					String encodedString = original.encodeAsString();
+        try (ByteArrayMessage original = new ByteArrayMessage(bytes)) {
+          // Encode to String
+          String encodedString = original.encodeAsString();
 
-					// Decode back to message
-					try (ByteArrayMessage decoded = (ByteArrayMessage)MessageType.BYTE_ARRAY.decode(encodedString, tempFileContext)) {
-						assertEquals(original, decoded);
-					}
-				}
-			}
-		}
-	}
+          // Decode back to message
+          try (ByteArrayMessage decoded = (ByteArrayMessage)MessageType.BYTE_ARRAY.decode(encodedString, tempFileContext)) {
+            assertEquals(original, decoded);
+          }
+        }
+      }
+    }
+  }
 }

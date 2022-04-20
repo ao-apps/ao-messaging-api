@@ -31,73 +31,81 @@ import java.nio.charset.StandardCharsets;
  */
 public class StringMessage implements Message {
 
-	public static final StringMessage EMPTY_STRING_MESSAGE = new StringMessage("");
+  public static final StringMessage EMPTY_STRING_MESSAGE = new StringMessage("");
 
-	private static final Charset CHARSET = StandardCharsets.UTF_8;
+  private static final Charset CHARSET = StandardCharsets.UTF_8;
 
-	/**
-	 * {@link StandardCharsets#UTF_8} decodes the message.
-	 */
-	public static StringMessage decode(ByteArray encodedMessage) {
-		if(encodedMessage.size == 0) return EMPTY_STRING_MESSAGE;
+  /**
+   * {@link StandardCharsets#UTF_8} decodes the message.
+   */
+  public static StringMessage decode(ByteArray encodedMessage) {
+    if (encodedMessage.size == 0) {
+      return EMPTY_STRING_MESSAGE;
+    }
 
-		return new StringMessage(new String(encodedMessage.array, 0, encodedMessage.size, CHARSET));
-	}
+    return new StringMessage(new String(encodedMessage.array, 0, encodedMessage.size, CHARSET));
+  }
 
-	private final String message;
+  private final String message;
 
-	public StringMessage(String message) {
-		this.message = message;
-	}
+  public StringMessage(String message) {
+    this.message = message;
+  }
 
-	@Override
-	public String toString() {
-		if(message.length() > 21) {
-			return "StringMessage(\"" + message.substring(0, 20) + "…\")";
-		} else {
-			return "StringMessage(\"" + message + "\")";
-		}
-	}
+  @Override
+  public String toString() {
+    if (message.length() > 21) {
+      return "StringMessage(\"" + message.substring(0, 20) + "…\")";
+    } else {
+      return "StringMessage(\"" + message + "\")";
+    }
+  }
 
-	@Override
-	public boolean equals(Object o) {
-		if(this == o) return true;
-		if(!(o instanceof StringMessage)) return false;
-		StringMessage other = (StringMessage)o;
-		return message.equals(other.message);
-	}
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof StringMessage)) {
+      return false;
+    }
+    StringMessage other = (StringMessage)o;
+    return message.equals(other.message);
+  }
 
-	@Override
-	public int hashCode() {
-		return message.hashCode();
-	}
+  @Override
+  public int hashCode() {
+    return message.hashCode();
+  }
 
-	@Override
-	public MessageType getMessageType() {
-		return MessageType.STRING;
-	}
+  @Override
+  public MessageType getMessageType() {
+    return MessageType.STRING;
+  }
 
-	@Override
-	public String encodeAsString() {
-		return message;
-	}
+  @Override
+  public String encodeAsString() {
+    return message;
+  }
 
-	/**
-	 * {@link StandardCharsets#UTF_8} encodes the message.
-	 */
-	@Override
-	public ByteArray encodeAsByteArray() {
-		if(message.isEmpty()) return ByteArray.EMPTY_BYTE_ARRAY;
+  /**
+   * {@link StandardCharsets#UTF_8} encodes the message.
+   */
+  @Override
+  public ByteArray encodeAsByteArray() {
+    if (message.isEmpty()) {
+      return ByteArray.EMPTY_BYTE_ARRAY;
+    }
 
-		return new ByteArray(message.getBytes(CHARSET));
-	}
+    return new ByteArray(message.getBytes(CHARSET));
+  }
 
-	@Override
-	public void close() {
-		// Nothing to do
-	}
+  @Override
+  public void close() {
+    // Nothing to do
+  }
 
-	public String getMessage() {
-		return message;
-	}
+  public String getMessage() {
+    return message;
+  }
 }

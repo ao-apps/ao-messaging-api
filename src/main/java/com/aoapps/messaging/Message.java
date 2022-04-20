@@ -31,36 +31,36 @@ import java.io.IOException;
  */
 public interface Message extends Closeable {
 
-	/**
-	 * Two messages of the same type with the same body must be considered equal.
-	 */
-	@Override
-	boolean equals(Object o);
+  /**
+   * Two messages of the same type with the same body must be considered equal.
+   */
+  @Override
+  boolean equals(Object o);
 
-	/**
-	 * The hash code must be consistent with equals.
-	 */
-	@Override
-	int hashCode();
+  /**
+   * The hash code must be consistent with equals.
+   */
+  @Override
+  int hashCode();
 
-	/**
-	 * Gets the message type.
-	 */
-	MessageType getMessageType();
+  /**
+   * Gets the message type.
+   */
+  MessageType getMessageType();
 
-	/**
-	 * Gets a String representation of this message.
-	 */
-	String encodeAsString() throws IOException;
+  /**
+   * Gets a String representation of this message.
+   */
+  String encodeAsString() throws IOException;
 
-	/**
-	 * Gets a binary representation of this message.
-	 */
-	ByteArray encodeAsByteArray() throws IOException;
+  /**
+   * Gets a binary representation of this message.
+   */
+  ByteArray encodeAsByteArray() throws IOException;
 
-	/**
-	 * The message should be closed when it is no longer needed.
-	 */
-	@Override
-	void close() throws IOException;
+  /**
+   * The message should be closed when it is no longer needed.
+   */
+  @Override
+  void close() throws IOException;
 }

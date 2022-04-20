@@ -35,33 +35,33 @@ import java.util.Map;
  */
 public interface SocketContext extends Closeable {
 
-	/**
-	 * Gets a snapshot of all active sockets.
-	 * If context is closed will be an empty map.
-	 */
-	Map<Identifier, ? extends Socket> getSockets();
+  /**
+   * Gets a snapshot of all active sockets.
+   * If context is closed will be an empty map.
+   */
+  Map<Identifier, ? extends Socket> getSockets();
 
-	/**
-	 * Gets the socket of the given ID or <code>null</code> if not found.
-	 */
-	Socket getSocket(Identifier id);
+  /**
+   * Gets the socket of the given ID or <code>null</code> if not found.
+   */
+  Socket getSocket(Identifier id);
 
-	/**
-	 * Closes this context.  When the context is closed, all active sockets are
-	 * closed and all related persistent resources are freed.
-	 */
-	@Override
-	void close() throws IOException;
+  /**
+   * Closes this context.  When the context is closed, all active sockets are
+   * closed and all related persistent resources are freed.
+   */
+  @Override
+  void close() throws IOException;
 
-	boolean isClosed();
+  boolean isClosed();
 
-	/**
-	 * @see  ConcurrentListenerManager#addListener(java.lang.Object, boolean)
-	 */
-	void addSocketContextListener(SocketContextListener listener, boolean synchronous);
+  /**
+   * @see  ConcurrentListenerManager#addListener(java.lang.Object, boolean)
+   */
+  void addSocketContextListener(SocketContextListener listener, boolean synchronous);
 
-	/**
-	 * @see  ConcurrentListenerManager#removeListener(java.lang.Object)
-	 */
-	boolean removeSocketContextListener(SocketContextListener listener);
+  /**
+   * @see  ConcurrentListenerManager#removeListener(java.lang.Object)
+   */
+  boolean removeSocketContextListener(SocketContextListener listener);
 }

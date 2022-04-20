@@ -42,155 +42,161 @@ import java.nio.file.Files;
  */
 public class FileMessage implements Message {
 
-	/**
-	 * base-64 decodes the message into the provided file.
-	 *
-	 * @see #decode(com.aoapps.messaging.ByteArray, java.io.File)
-	 */
-	public static FileMessage decode(String encodedMessage, File file) throws IOException {
-		return decode(
-			encodedMessage.isEmpty()
-			? ByteArray.EMPTY_BYTE_ARRAY
-			: new ByteArray(
-				Base64Coder.decode(
-					encodedMessage
-				)
-			),
-			file
-		);
-	}
+  /**
+   * base-64 decodes the message into the provided file.
+   *
+   * @see #decode(com.aoapps.messaging.ByteArray, java.io.File)
+   */
+  public static FileMessage decode(String encodedMessage, File file) throws IOException {
+    return decode(
+      encodedMessage.isEmpty()
+      ? ByteArray.EMPTY_BYTE_ARRAY
+      : new ByteArray(
+        Base64Coder.decode(
+          encodedMessage
+        )
+      ),
+      file
+    );
+  }
 
-	/**
-	 * base-64 decodes the message into a temp file.
-	 *
-	 * @see  #decode(java.lang.String, java.io.File)
-	 *
-	 * @deprecated  Please use {@link TempFileContext}
-	 *              as {@link File#deleteOnExit()} is prone to memory leaks in long-running applications.
-	 */
-	@Deprecated
-	public static FileMessage decode(String encodedMessage) throws IOException {
-		return decode(
-			encodedMessage.isEmpty()
-			? ByteArray.EMPTY_BYTE_ARRAY
-			: new ByteArray(
-				Base64Coder.decode(
-					encodedMessage
-				)
-			)
-		);
-	}
+  /**
+   * base-64 decodes the message into a temp file.
+   *
+   * @see  #decode(java.lang.String, java.io.File)
+   *
+   * @deprecated  Please use {@link TempFileContext}
+   *              as {@link File#deleteOnExit()} is prone to memory leaks in long-running applications.
+   */
+  @Deprecated
+  public static FileMessage decode(String encodedMessage) throws IOException {
+    return decode(
+      encodedMessage.isEmpty()
+      ? ByteArray.EMPTY_BYTE_ARRAY
+      : new ByteArray(
+        Base64Coder.decode(
+          encodedMessage
+        )
+      )
+    );
+  }
 
-	/**
-	 * Restores this message into the provided file.
-	 *
-	 * @see  #decode(java.lang.String, java.io.File)
-	 */
-	public static FileMessage decode(ByteArray encodedMessage, File file) throws IOException {
-		try (OutputStream out = new FileOutputStream(file)) {
-			out.write(encodedMessage.array, 0, encodedMessage.size);
-		}
-		return new FileMessage(true, file);
-	}
+  /**
+   * Restores this message into the provided file.
+   *
+   * @see  #decode(java.lang.String, java.io.File)
+   */
+  public static FileMessage decode(ByteArray encodedMessage, File file) throws IOException {
+    try (OutputStream out = new FileOutputStream(file)) {
+      out.write(encodedMessage.array, 0, encodedMessage.size);
+    }
+    return new FileMessage(true, file);
+  }
 
-	/**
-	 * Restores this message into a temp file.
-	 *
-	 * @see  #decode(com.aoapps.messaging.ByteArray, java.io.File)
-	 *
-	 * @deprecated  Please use {@link TempFileContext}
-	 *              as {@link File#deleteOnExit()} is prone to memory leaks in long-running applications.
-	 */
-	@Deprecated
-	public static FileMessage decode(ByteArray encodedMessage) throws IOException {
-		File file = Files.createTempFile("FileMessage.", null).toFile();
-		file.deleteOnExit();
-		return decode(encodedMessage, file);
-	}
+  /**
+   * Restores this message into a temp file.
+   *
+   * @see  #decode(com.aoapps.messaging.ByteArray, java.io.File)
+   *
+   * @deprecated  Please use {@link TempFileContext}
+   *              as {@link File#deleteOnExit()} is prone to memory leaks in long-running applications.
+   */
+  @Deprecated
+  public static FileMessage decode(ByteArray encodedMessage) throws IOException {
+    File file = Files.createTempFile("FileMessage.", null).toFile();
+    file.deleteOnExit();
+    return decode(encodedMessage, file);
+  }
 
-	private final boolean isTemp;
-	private final Object lock = new Object();
-	private File file;
+  private final boolean isTemp;
+  private final Object lock = new Object();
+  private File file;
 
-	public FileMessage(File file) {
-		this(false, file);
-	}
+  public FileMessage(File file) {
+    this(false, file);
+  }
 
-	private FileMessage(boolean isTemp, File file) {
-		this.isTemp = isTemp;
-		this.file = file;
-	}
+  private FileMessage(boolean isTemp, File file) {
+    this.isTemp = isTemp;
+    this.file = file;
+  }
 
-	@Override
-	public String toString() {
-		return "FileMessage(\"" + file.getPath() + "\")";
-	}
+  @Override
+  public String toString() {
+    return "FileMessage(\"" + file.getPath() + "\")";
+  }
 
-	@Override
-	public boolean equals(Object o) {
-		if(this == o) return true;
-		if(!(o instanceof FileMessage)) return false;
-		FileMessage other = (FileMessage)o;
-		try {
-			return FileUtils.contentEquals(file, other.file);
-		} catch(IOException e) {
-			throw new UncheckedIOException(e);
-		}
-	}
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof FileMessage)) {
+      return false;
+    }
+    FileMessage other = (FileMessage)o;
+    try {
+      return FileUtils.contentEquals(file, other.file);
+    } catch (IOException e) {
+      throw new UncheckedIOException(e);
+    }
+  }
 
-	@Override
-	public int hashCode() {
-		try {
-			return FileUtils.contentHashCode(file);
-		} catch(IOException e) {
-			throw new UncheckedIOException(e);
-		}
-	}
+  @Override
+  public int hashCode() {
+    try {
+      return FileUtils.contentHashCode(file);
+    } catch (IOException e) {
+      throw new UncheckedIOException(e);
+    }
+  }
 
-	@Override
-	public MessageType getMessageType() {
-		return MessageType.FILE;
-	}
+  @Override
+  public MessageType getMessageType() {
+    return MessageType.FILE;
+  }
 
-	/**
-	 * base-64 encodes the message.
-	 */
-	@Override
-	public String encodeAsString() throws IOException {
-		ByteArray byteArray = encodeAsByteArray();
-		if(byteArray.size == 0) return "";
-		return new String(Base64Coder.encode(byteArray.array, byteArray.size));
-	}
+  /**
+   * base-64 encodes the message.
+   */
+  @Override
+  public String encodeAsString() throws IOException {
+    ByteArray byteArray = encodeAsByteArray();
+    if (byteArray.size == 0) {
+      return "";
+    }
+    return new String(Base64Coder.encode(byteArray.array, byteArray.size));
+  }
 
-	@Override
-	public ByteArray encodeAsByteArray() throws IOException {
-		long len = file.length();
-		try (InputStream in = new FileInputStream(file)) {
-			AoByteArrayOutputStream bout = new AoByteArrayOutputStream(len > 0 && len <= Integer.MAX_VALUE ? (int)len : 32);
-			try {
-				IoUtils.copy(in, bout);
-			} finally {
-				bout.close();
-			}
-			return new ByteArray(bout.getInternalByteArray(), bout.size());
-		}
-	}
+  @Override
+  public ByteArray encodeAsByteArray() throws IOException {
+    long len = file.length();
+    try (InputStream in = new FileInputStream(file)) {
+      AoByteArrayOutputStream bout = new AoByteArrayOutputStream(len > 0 && len <= Integer.MAX_VALUE ? (int)len : 32);
+      try {
+        IoUtils.copy(in, bout);
+      } finally {
+        bout.close();
+      }
+      return new ByteArray(bout.getInternalByteArray(), bout.size());
+    }
+  }
 
-	@Override
-	public void close() throws IOException {
-		synchronized(lock) {
-			if(isTemp && file != null) {
-				Files.delete(file.toPath());
-				file = null;
-			}
-		}
-	}
+  @Override
+  public void close() throws IOException {
+    synchronized (lock) {
+      if (isTemp && file != null) {
+        Files.delete(file.toPath());
+        file = null;
+      }
+    }
+  }
 
-	public boolean isTemp() {
-		return isTemp;
-	}
+  public boolean isTemp() {
+    return isTemp;
+  }
 
-	public File getMessage() {
-		return file;
-	}
+  public File getMessage() {
+    return file;
+  }
 }

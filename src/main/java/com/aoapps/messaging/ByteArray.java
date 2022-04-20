@@ -31,39 +31,45 @@ import com.aoapps.lang.EmptyArrays;
  */
 public class ByteArray {
 
-	public static final ByteArray EMPTY_BYTE_ARRAY = new ByteArray(EmptyArrays.EMPTY_BYTE_ARRAY);
+  public static final ByteArray EMPTY_BYTE_ARRAY = new ByteArray(EmptyArrays.EMPTY_BYTE_ARRAY);
 
-	public final byte[] array;
-	public final int size;
+  public final byte[] array;
+  public final int size;
 
-	public ByteArray(byte[] array) {
-		this(array, array.length);
-	}
+  public ByteArray(byte[] array) {
+    this(array, array.length);
+  }
 
-	public ByteArray(byte[] array, int size) {
-		this.array = array;
-		this.size = size;
-		assert size <= array.length;
-	}
+  public ByteArray(byte[] array, int size) {
+    this.array = array;
+    this.size = size;
+    assert size <= array.length;
+  }
 
-	/**
-	 * Two ByteArray are equal when they have the same size and each byte
-	 * within the first <code>size</code> bytes are equal.
-	 */
-	@Override
-	public boolean equals(Object o) {
-		if(this == o) return true;
-		if(!(o instanceof ByteArray)) return false;
-		ByteArray other = (ByteArray)o;
-		if(size != other.size) return false;
-		return AoArrays.equals(array, other.array, 0, size);
-	}
+  /**
+   * Two ByteArray are equal when they have the same size and each byte
+   * within the first <code>size</code> bytes are equal.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof ByteArray)) {
+      return false;
+    }
+    ByteArray other = (ByteArray)o;
+    if (size != other.size) {
+      return false;
+    }
+    return AoArrays.equals(array, other.array, 0, size);
+  }
 
-	/**
-	 * The hashCode is created from the first <code>size</code> bytes.
-	 */
-	@Override
-	public int hashCode() {
-		return AoArrays.hashCode(array, 0, size);
-	}
+  /**
+   * The hashCode is created from the first <code>size</code> bytes.
+   */
+  @Override
+  public int hashCode() {
+    return AoArrays.hashCode(array, 0, size);
+  }
 }

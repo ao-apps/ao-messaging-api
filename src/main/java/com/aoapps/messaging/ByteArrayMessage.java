@@ -30,71 +30,79 @@ import com.aoapps.hodgepodge.util.Base64Coder;
  */
 public class ByteArrayMessage implements Message {
 
-	public static final ByteArrayMessage EMPTY_BYTE_ARRAY_MESSAGE = new ByteArrayMessage(ByteArray.EMPTY_BYTE_ARRAY);
+  public static final ByteArrayMessage EMPTY_BYTE_ARRAY_MESSAGE = new ByteArrayMessage(ByteArray.EMPTY_BYTE_ARRAY);
 
-	/**
-	 * base-64 decodes the message.
-	 */
-	public static ByteArrayMessage decode(String encodedMessage) {
-		if(encodedMessage.isEmpty()) return EMPTY_BYTE_ARRAY_MESSAGE;
+  /**
+   * base-64 decodes the message.
+   */
+  public static ByteArrayMessage decode(String encodedMessage) {
+    if (encodedMessage.isEmpty()) {
+      return EMPTY_BYTE_ARRAY_MESSAGE;
+    }
 
-		return new ByteArrayMessage(Base64Coder.decode(encodedMessage));
-	}
+    return new ByteArrayMessage(Base64Coder.decode(encodedMessage));
+  }
 
-	private final ByteArray message;
+  private final ByteArray message;
 
-	public ByteArrayMessage(byte[] message) {
-		this(new ByteArray(message));
-	}
+  public ByteArrayMessage(byte[] message) {
+    this(new ByteArray(message));
+  }
 
-	public ByteArrayMessage(ByteArray message) {
-		this.message = message;
-	}
+  public ByteArrayMessage(ByteArray message) {
+    this.message = message;
+  }
 
-	@Override
-	public String toString() {
-		return "ByteArrayMessage(" + message.size + ")";
-	}
+  @Override
+  public String toString() {
+    return "ByteArrayMessage(" + message.size + ")";
+  }
 
-	@Override
-	public boolean equals(Object o) {
-		if(this == o) return true;
-		if(!(o instanceof ByteArrayMessage)) return false;
-		ByteArrayMessage other = (ByteArrayMessage)o;
-		return message.equals(other.message);
-	}
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof ByteArrayMessage)) {
+      return false;
+    }
+    ByteArrayMessage other = (ByteArrayMessage)o;
+    return message.equals(other.message);
+  }
 
-	@Override
-	public int hashCode() {
-		return message.hashCode();
-	}
+  @Override
+  public int hashCode() {
+    return message.hashCode();
+  }
 
-	@Override
-	public MessageType getMessageType() {
-		return MessageType.BYTE_ARRAY;
-	}
+  @Override
+  public MessageType getMessageType() {
+    return MessageType.BYTE_ARRAY;
+  }
 
-	/**
-	 * base-64 encodes the message.
-	 */
-	@Override
-	public String encodeAsString() {
-		if(message.size == 0) return "";
+  /**
+   * base-64 encodes the message.
+   */
+  @Override
+  public String encodeAsString() {
+    if (message.size == 0) {
+      return "";
+    }
 
-		return new String(Base64Coder.encode(message.array, message.size));
-	}
+    return new String(Base64Coder.encode(message.array, message.size));
+  }
 
-	@Override
-	public ByteArray encodeAsByteArray() {
-		return message;
-	}
+  @Override
+  public ByteArray encodeAsByteArray() {
+    return message;
+  }
 
-	@Override
-	public void close() {
-		// Nothing to do
-	}
+  @Override
+  public void close() {
+    // Nothing to do
+  }
 
-	public ByteArray getMessage() {
-		return message;
-	}
+  public ByteArray getMessage() {
+    return message;
+  }
 }

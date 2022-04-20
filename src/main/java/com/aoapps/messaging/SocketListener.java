@@ -42,33 +42,33 @@ import java.util.List;
  */
 public interface SocketListener {
 
-	/**
-	 * Called when one or more new messages arrive.
-	 * Messages are always delivered in-order.
-	 * At least one message will be provided.
-	 * Subsequent messages will not be sent until this onMessage completes.
-	 * 
-	 * @param  messages  The unmodifiable list of messages in the order received
-	 */
-	void onMessages(Socket socket, List<? extends Message> messages);
+  /**
+   * Called when one or more new messages arrive.
+   * Messages are always delivered in-order.
+   * At least one message will be provided.
+   * Subsequent messages will not be sent until this onMessage completes.
+   * 
+   * @param  messages  The unmodifiable list of messages in the order received
+   */
+  void onMessages(Socket socket, List<? extends Message> messages);
 
-	/**
-	 * Called when an error occurs.  The socket is closed after the first error.
-	 */
-	void onError(Socket socket, Throwable t);
+  /**
+   * Called when an error occurs.  The socket is closed after the first error.
+   */
+  void onError(Socket socket, Throwable t);
 
-	/**
-	 * Called when a new remote address is seen.
-	 */
-	void onRemoteSocketAddressChange(
-		Socket socket,
-		SocketAddress oldRemoteSocketAddress,
-		SocketAddress newRemoteSocketAddress
-	);
+  /**
+   * Called when a new remote address is seen.
+   */
+  void onRemoteSocketAddressChange(
+    Socket socket,
+    SocketAddress oldRemoteSocketAddress,
+    SocketAddress newRemoteSocketAddress
+  );
 
-	/**
-	 * Called when a socket is closed.
-	 * This will only be called once.
-	 */
-	void onSocketClose(Socket socket);
+  /**
+   * Called when a socket is closed.
+   * This will only be called once.
+   */
+  void onSocketClose(Socket socket);
 }

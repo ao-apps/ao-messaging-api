@@ -36,85 +36,85 @@ import java.util.Collection;
  */
 public interface Socket extends Closeable {
 
-	/**
-	 * Gets the context this socket is running within.
-	 */
-	SocketContext getSocketContext();
+  /**
+   * Gets the context this socket is running within.
+   */
+  SocketContext getSocketContext();
 
-	/**
-	 * Gets this socket's unique identifier.  This identifier should remain secret
-	 * as compromising an identifier may allow hijacking a connection.
-	 * No two sockets will have the same identifier for a given context at the same time.
-	 */
-	Identifier getId();
+  /**
+   * Gets this socket's unique identifier.  This identifier should remain secret
+   * as compromising an identifier may allow hijacking a connection.
+   * No two sockets will have the same identifier for a given context at the same time.
+   */
+  Identifier getId();
 
-	/**
-	 * Gets the time this connection was established.
-	 */
-	long getConnectTime();
+  /**
+   * Gets the time this connection was established.
+   */
+  long getConnectTime();
 
-	/**
-	 * Gets the time this connection closed or null if still connected.
-	 */
-	Long getCloseTime();
+  /**
+   * Gets the time this connection closed or null if still connected.
+   */
+  Long getCloseTime();
 
-	/**
-	 * Gets the protocol, such as "http" or "tcp".
-	 */
-	String getProtocol();
+  /**
+   * Gets the protocol, such as "http" or "tcp".
+   */
+  String getProtocol();
 
-	/**
-	 * Gets the remote address at connection time.  This value will not change.
-	 */
-	SocketAddress getConnectRemoteSocketAddress();
+  /**
+   * Gets the remote address at connection time.  This value will not change.
+   */
+  SocketAddress getConnectRemoteSocketAddress();
 
-	/**
-	 * Gets the most recently seen remote address.  This value may change.
-	 */
-	SocketAddress getRemoteSocketAddress();
+  /**
+   * Gets the most recently seen remote address.  This value may change.
+   */
+  SocketAddress getRemoteSocketAddress();
 
-	/**
-	 * Starts the I/O of a socket.  After connection, a socket does not send
-	 * I/O events until started.  This allows listeners to be registered between
-	 * connect and start calls.
-	 * 
-	 * @throws IllegalStateException  if closed or already started
-	 */
-	void start(
-		Callback<? super Socket> onStart,
-		Callback<? super Throwable> onError
-	) throws IllegalStateException;
+  /**
+   * Starts the I/O of a socket.  After connection, a socket does not send
+   * I/O events until started.  This allows listeners to be registered between
+   * connect and start calls.
+   * 
+   * @throws IllegalStateException  if closed or already started
+   */
+  void start(
+    Callback<? super Socket> onStart,
+    Callback<? super Throwable> onError
+  ) throws IllegalStateException;
 
-	/**
-	 * Closing a socket also removes it from its context.
-	 */
-	@Override
-	void close() throws IOException;
+  /**
+   * Closing a socket also removes it from its context.
+   */
+  @Override
+  void close() throws IOException;
 
-	boolean isClosed();
+  boolean isClosed();
 
-	/**
-	 * @see  ConcurrentListenerManager#addListener(java.lang.Object, boolean)
-	 */
-	void addSocketListener(SocketListener listener, boolean synchronous) throws IllegalStateException;
+  /**
+   * @see  ConcurrentListenerManager#addListener(java.lang.Object, boolean)
+   */
+  void addSocketListener(SocketListener listener, boolean synchronous) throws IllegalStateException;
 
-	/**
-	 * @see  ConcurrentListenerManager#removeListener(java.lang.Object)
-	 */
-	boolean removeSocketListener(SocketListener listener);
+  /**
+   * @see  ConcurrentListenerManager#removeListener(java.lang.Object)
+   */
+  boolean removeSocketListener(SocketListener listener);
 
-	/**
-	 * Sends a single message.  This will never block.
-	 *
-	 * @throws  IllegalStateException  if this socket is closed
-	 */
-	void sendMessage(Message message) throws IllegalStateException;
+  /**
+   * Sends a single message.  This will never block.
+   *
+   * @throws  IllegalStateException  if this socket is closed
+   */
+  void sendMessage(Message message) throws IllegalStateException;
 
-	/**
-	 * Sends a set of messages.  This will never block.
-	 * If messages is empty, the request is ignored.
-	 *
-	 * @throws  IllegalStateException  if this socket is closed
-	 */
-	void sendMessages(Collection<? extends Message> messages) throws IllegalStateException;
+  /**
+   * Sends a set of messages.  This will never block.
+   * If messages is empty, the request is ignored.
+   *
+   * @throws  IllegalStateException  if this socket is closed
+   */
+  void sendMessages(Collection<? extends Message> messages) throws IllegalStateException;
 }
