@@ -60,7 +60,7 @@ public class MultiMessage implements Message {
     }
     final int size = Integer.parseInt(encodedMessages.substring(0, pos++));
     List<Message> decodedMessages = new ArrayList<>(size);
-    for (int i=0; i<size; i++) {
+    for (int i = 0; i < size; i++) {
       MessageType type = MessageType.getFromTypeChar(encodedMessages.charAt(pos++));
       int nextPos = encodedMessages.indexOf(DELIMITER, pos);
       if (nextPos == -1) {
@@ -96,7 +96,7 @@ public class MultiMessage implements Message {
     }
     final int size = Integer.parseInt(encodedMessages.substring(0, pos++));
     List<Message> decodedMessages = new ArrayList<>(size);
-    for (int i=0; i<size; i++) {
+    for (int i = 0; i < size; i++) {
       MessageType type = MessageType.getFromTypeChar(encodedMessages.charAt(pos++));
       int nextPos = encodedMessages.indexOf(DELIMITER, pos);
       if (nextPos == -1) {
@@ -125,7 +125,7 @@ public class MultiMessage implements Message {
       final int size = in.readInt();
       totalRead += 4;
       List<Message> decodedMessages = new ArrayList<>(size);
-      for (int i=0; i<size; i++) {
+      for (int i = 0; i < size; i++) {
         MessageType type = MessageType.getFromTypeByte(in.readByte());
         totalRead++;
         final int capacity = in.readInt();
@@ -161,7 +161,7 @@ public class MultiMessage implements Message {
       final int size = in.readInt();
       totalRead += 4;
       List<Message> decodedMessages = new ArrayList<>(size);
-      for (int i=0; i<size; i++) {
+      for (int i = 0; i < size; i++) {
         MessageType type = MessageType.getFromTypeByte(in.readByte());
         totalRead++;
         final int capacity = in.readInt();
@@ -207,7 +207,7 @@ public class MultiMessage implements Message {
     if (!(o instanceof MultiMessage)) {
       return false;
     }
-    MultiMessage other = (MultiMessage)o;
+    MultiMessage other = (MultiMessage) o;
     return AoCollections.equals(unmodifiableMessages, other.unmodifiableMessages);
   }
 
@@ -238,10 +238,10 @@ public class MultiMessage implements Message {
       count++;
       String str = message.encodeAsString();
       sb
-        .append(message.getMessageType().getTypeChar())
-        .append(str.length())
-        .append(DELIMITER)
-        .append(str)
+          .append(message.getMessageType().getTypeChar())
+          .append(str.length())
+          .append(DELIMITER)
+          .append(str)
       ;
     }
     if (count != size) {

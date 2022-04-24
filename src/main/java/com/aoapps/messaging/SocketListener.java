@@ -61,9 +61,9 @@ public interface SocketListener {
    * Called when a new remote address is seen.
    */
   void onRemoteSocketAddressChange(
-    Socket socket,
-    SocketAddress oldRemoteSocketAddress,
-    SocketAddress newRemoteSocketAddress
+      Socket socket,
+      SocketAddress oldRemoteSocketAddress,
+      SocketAddress newRemoteSocketAddress
   );
 
   /**

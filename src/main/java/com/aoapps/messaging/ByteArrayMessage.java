@@ -66,7 +66,7 @@ public class ByteArrayMessage implements Message {
     if (!(o instanceof ByteArrayMessage)) {
       return false;
     }
-    ByteArrayMessage other = (ByteArrayMessage)o;
+    ByteArrayMessage other = (ByteArrayMessage) o;
     return message.equals(other.message);
   }
 

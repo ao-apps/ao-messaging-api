@@ -58,7 +58,7 @@ public class ByteArray {
     if (!(o instanceof ByteArray)) {
       return false;
     }
-    ByteArray other = (ByteArray)o;
+    ByteArray other = (ByteArray) o;
     if (size != other.size) {
       return false;
     }

@@ -49,14 +49,14 @@ public class FileMessage implements Message {
    */
   public static FileMessage decode(String encodedMessage, File file) throws IOException {
     return decode(
-      encodedMessage.isEmpty()
-      ? ByteArray.EMPTY_BYTE_ARRAY
-      : new ByteArray(
-        Base64Coder.decode(
-          encodedMessage
-        )
-      ),
-      file
+        encodedMessage.isEmpty()
+            ? ByteArray.EMPTY_BYTE_ARRAY
+            : new ByteArray(
+            Base64Coder.decode(
+                encodedMessage
+            )
+        ),
+        file
     );
   }
 
@@ -71,13 +71,13 @@ public class FileMessage implements Message {
   @Deprecated
   public static FileMessage decode(String encodedMessage) throws IOException {
     return decode(
-      encodedMessage.isEmpty()
-      ? ByteArray.EMPTY_BYTE_ARRAY
-      : new ByteArray(
-        Base64Coder.decode(
-          encodedMessage
+        encodedMessage.isEmpty()
+            ? ByteArray.EMPTY_BYTE_ARRAY
+            : new ByteArray(
+            Base64Coder.decode(
+                encodedMessage
+            )
         )
-      )
     );
   }
 
@@ -134,7 +134,7 @@ public class FileMessage implements Message {
     if (!(o instanceof FileMessage)) {
       return false;
     }
-    FileMessage other = (FileMessage)o;
+    FileMessage other = (FileMessage) o;
     try {
       return FileUtils.contentEquals(file, other.file);
     } catch (IOException e) {
@@ -172,7 +172,7 @@ public class FileMessage implements Message {
   public ByteArray encodeAsByteArray() throws IOException {
     long len = file.length();
     try (InputStream in = new FileInputStream(file)) {
-      AoByteArrayOutputStream bout = new AoByteArrayOutputStream(len > 0 && len <= Integer.MAX_VALUE ? (int)len : 32);
+      AoByteArrayOutputStream bout = new AoByteArrayOutputStream(len > 0 && len <= Integer.MAX_VALUE ? (int) len : 32);
       try {
         IoUtils.copy(in, bout);
       } finally {

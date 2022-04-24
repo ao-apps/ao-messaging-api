@@ -33,38 +33,38 @@ import java.io.IOException;
 public enum MessageType {
 
   BYTE_ARRAY {
-    @Override
-    public byte getTypeByte() {
-      return 0;
-    }
+  @Override
+  public byte getTypeByte() {
+    return 0;
+  }
 
-    @Override
-    public char getTypeChar() {
-      return 'b';
-    }
+  @Override
+  public char getTypeChar() {
+    return 'b';
+  }
 
-    @Override
-    public ByteArrayMessage decode(String encodedMessage, TempFileContext tempFileContext) {
-      return ByteArrayMessage.decode(encodedMessage);
-    }
+  @Override
+  public ByteArrayMessage decode(String encodedMessage, TempFileContext tempFileContext) {
+    return ByteArrayMessage.decode(encodedMessage);
+  }
 
-    @Override
-    @Deprecated
-    public ByteArrayMessage decode(String encodedMessage) {
-      return ByteArrayMessage.decode(encodedMessage);
-    }
+  @Override
+  @Deprecated
+  public ByteArrayMessage decode(String encodedMessage) {
+    return ByteArrayMessage.decode(encodedMessage);
+  }
 
-    @Override
-    public ByteArrayMessage decode(ByteArray encodedMessage, TempFileContext tempFileContext) {
-      return new ByteArrayMessage(encodedMessage);
-    }
+  @Override
+  public ByteArrayMessage decode(ByteArray encodedMessage, TempFileContext tempFileContext) {
+    return new ByteArrayMessage(encodedMessage);
+  }
 
-    @Override
-    @Deprecated
-    public ByteArrayMessage decode(ByteArray encodedMessage) {
-      return new ByteArrayMessage(encodedMessage);
-    }
-  },
+  @Override
+  @Deprecated
+  public ByteArrayMessage decode(ByteArray encodedMessage) {
+    return new ByteArrayMessage(encodedMessage);
+  }
+},
   FILE {
     @Override
     public byte getTypeByte() {
@@ -82,8 +82,8 @@ public enum MessageType {
         throw new IllegalStateException("No TempFileContext");
       }
       return FileMessage.decode(
-        encodedMessage,
-        tempFileContext.createTempFile("FileMessage_").getFile()
+          encodedMessage,
+          tempFileContext.createTempFile("FileMessage_").getFile()
       );
     }
 
@@ -99,8 +99,8 @@ public enum MessageType {
         throw new IllegalStateException("No TempFileContext");
       }
       return FileMessage.decode(
-        encodedMessage,
-        tempFileContext.createTempFile("FileMessage_").getFile()
+          encodedMessage,
+          tempFileContext.createTempFile("FileMessage_").getFile()
       );
     }
 

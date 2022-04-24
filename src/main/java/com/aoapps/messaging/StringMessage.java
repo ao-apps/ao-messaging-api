@@ -69,7 +69,7 @@ public class StringMessage implements Message {
     if (!(o instanceof StringMessage)) {
       return false;
     }
-    StringMessage other = (StringMessage)o;
+    StringMessage other = (StringMessage) o;
     return message.equals(other.message);
   }
 

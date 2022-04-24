@@ -41,7 +41,7 @@ public class ByteArrayMessageTest {
   @Test
   public void testEncodeAndDecode() throws IOException {
     try (TempFileContext tempFileContext = new TempFileContext()) {
-      for (int i=0; i<100; i++) {
+      for (int i = 0; i < 100; i++) {
         int len = fastRandom.nextInt(10000);
         byte[] bytes = new byte[len + fastRandom.nextInt(10)];
         fastRandom.nextBytes(bytes);
@@ -51,7 +51,7 @@ public class ByteArrayMessageTest {
           String encodedString = original.encodeAsString();
 
           // Decode back to message
-          try (ByteArrayMessage decoded = (ByteArrayMessage)MessageType.BYTE_ARRAY.decode(encodedString, tempFileContext)) {
+          try (ByteArrayMessage decoded = (ByteArrayMessage) MessageType.BYTE_ARRAY.decode(encodedString, tempFileContext)) {
             assertEquals(original, decoded);
           }
         }
