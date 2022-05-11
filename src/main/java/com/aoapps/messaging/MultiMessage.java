@@ -126,7 +126,7 @@ public class MultiMessage implements Message {
       totalRead += 4;
       List<Message> decodedMessages = new ArrayList<>(size);
       for (int i = 0; i < size; i++) {
-        MessageType type = MessageType.getFromTypeByte(in.readByte());
+        final MessageType type = MessageType.getFromTypeByte(in.readByte());
         totalRead++;
         final int capacity = in.readInt();
         totalRead += 4;
@@ -162,7 +162,7 @@ public class MultiMessage implements Message {
       totalRead += 4;
       List<Message> decodedMessages = new ArrayList<>(size);
       for (int i = 0; i < size; i++) {
-        MessageType type = MessageType.getFromTypeByte(in.readByte());
+        final MessageType type = MessageType.getFromTypeByte(in.readByte());
         totalRead++;
         final int capacity = in.readInt();
         totalRead += 4;
@@ -181,6 +181,8 @@ public class MultiMessage implements Message {
   private final Collection<? extends Message> unmodifiableMessages;
 
   /**
+   * Creates a new multi-message.
+   *
    * @param  messages  The unmodifiable messages, no defensive copy if performed
    */
   private MultiMessage(Collection<? extends Message> unmodifiableMessages, Void unused) {
@@ -188,6 +190,8 @@ public class MultiMessage implements Message {
   }
 
   /**
+   * Creates a new multi-message.
+   *
    * @param  messages  The messages or {@code null} for none, defensive copy if performed
    */
   public MultiMessage(Collection<? extends Message> messages) {
@@ -241,8 +245,7 @@ public class MultiMessage implements Message {
           .append(message.getMessageType().getTypeChar())
           .append(str.length())
           .append(DELIMITER)
-          .append(str)
-      ;
+          .append(str);
     }
     if (count != size) {
       throw new ConcurrentModificationException();
@@ -296,7 +299,7 @@ public class MultiMessage implements Message {
   }
 
   /**
-   * @return  The messages or empty list for none
+   * Gets the messages or empty list for none.
    */
   @SuppressWarnings("ReturnOfCollectionOrArrayField") // Returning unmodifiable
   public Collection<? extends Message> getMessages() {

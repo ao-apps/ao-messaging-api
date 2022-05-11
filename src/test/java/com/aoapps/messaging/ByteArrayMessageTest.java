@@ -23,14 +23,18 @@
 
 package com.aoapps.messaging;
 
+import static org.junit.Assert.assertEquals;
+
 import com.aoapps.lang.io.IoUtils;
 import com.aoapps.tempfiles.TempFileContext;
 import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.Random;
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
+/**
+ * Tests {@link ByteArrayMessage}.
+ */
 public class ByteArrayMessageTest {
 
   /**

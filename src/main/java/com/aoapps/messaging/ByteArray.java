@@ -36,10 +36,16 @@ public class ByteArray {
   public final byte[] array;
   public final int size;
 
+  /**
+   * Creates a new byte array wrapper.
+   */
   public ByteArray(byte[] array) {
     this(array, array.length);
   }
 
+  /**
+   * Creates a new byte array wrapper.
+   */
   public ByteArray(byte[] array, int size) {
     this.array = array;
     this.size = size;

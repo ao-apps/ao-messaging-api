@@ -33,38 +33,38 @@ import java.io.IOException;
 public enum MessageType {
 
   BYTE_ARRAY {
-  @Override
-  public byte getTypeByte() {
-    return 0;
-  }
+    @Override
+    public byte getTypeByte() {
+      return 0;
+    }
 
-  @Override
-  public char getTypeChar() {
-    return 'b';
-  }
+    @Override
+    public char getTypeChar() {
+      return 'b';
+    }
 
-  @Override
-  public ByteArrayMessage decode(String encodedMessage, TempFileContext tempFileContext) {
-    return ByteArrayMessage.decode(encodedMessage);
-  }
+    @Override
+    public ByteArrayMessage decode(String encodedMessage, TempFileContext tempFileContext) {
+      return ByteArrayMessage.decode(encodedMessage);
+    }
 
-  @Override
-  @Deprecated
-  public ByteArrayMessage decode(String encodedMessage) {
-    return ByteArrayMessage.decode(encodedMessage);
-  }
+    @Override
+    @Deprecated
+    public ByteArrayMessage decode(String encodedMessage) {
+      return ByteArrayMessage.decode(encodedMessage);
+    }
 
-  @Override
-  public ByteArrayMessage decode(ByteArray encodedMessage, TempFileContext tempFileContext) {
-    return new ByteArrayMessage(encodedMessage);
-  }
+    @Override
+    public ByteArrayMessage decode(ByteArray encodedMessage, TempFileContext tempFileContext) {
+      return new ByteArrayMessage(encodedMessage);
+    }
 
-  @Override
-  @Deprecated
-  public ByteArrayMessage decode(ByteArray encodedMessage) {
-    return new ByteArrayMessage(encodedMessage);
-  }
-},
+    @Override
+    @Deprecated
+    public ByteArrayMessage decode(ByteArray encodedMessage) {
+      return new ByteArrayMessage(encodedMessage);
+    }
+  },
   FILE {
     @Override
     public byte getTypeByte() {
@@ -177,23 +177,39 @@ public enum MessageType {
     }
   };
 
+  /**
+   * Gets the message type for its numeric code.
+   */
   public static MessageType getFromTypeByte(byte typeByte) {
     switch (typeByte) {
-      case 0 : return BYTE_ARRAY;
-      case 1 : return FILE;
-      case 2 : return STRING;
-      case 3 : return MULTI;
-      default : throw new IllegalArgumentException("Invalid type byte: " + typeByte);
+      case 0:
+        return BYTE_ARRAY;
+      case 1:
+        return FILE;
+      case 2:
+        return STRING;
+      case 3:
+        return MULTI;
+      default:
+        throw new IllegalArgumentException("Invalid type byte: " + typeByte);
     }
   }
 
+  /**
+   * Gets the message type for its character code.
+   */
   public static MessageType getFromTypeChar(char typeChar) {
     switch (typeChar) {
-      case 'b' : return BYTE_ARRAY;
-      case 'f' : return FILE;
-      case 's' : return STRING;
-      case 'm' : return MULTI;
-      default : throw new IllegalArgumentException("Invalid type char: " + typeChar);
+      case 'b':
+        return BYTE_ARRAY;
+      case 'f':
+        return FILE;
+      case 's':
+        return STRING;
+      case 'm':
+        return MULTI;
+      default:
+        throw new IllegalArgumentException("Invalid type char: " + typeChar);
     }
   }
 

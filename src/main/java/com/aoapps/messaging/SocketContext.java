@@ -56,12 +56,12 @@ public interface SocketContext extends Closeable {
   boolean isClosed();
 
   /**
-   * @see  ConcurrentListenerManager#addListener(java.lang.Object, boolean)
+   * See {@link ConcurrentListenerManager#addListener(java.lang.Object, boolean)}.
    */
   void addSocketContextListener(SocketContextListener listener, boolean synchronous);
 
   /**
-   * @see  ConcurrentListenerManager#removeListener(java.lang.Object)
+   * See {@link ConcurrentListenerManager#removeListener(java.lang.Object)}.
    */
   boolean removeSocketContextListener(SocketContextListener listener);
 }

@@ -77,7 +77,7 @@ public interface Socket extends Closeable {
    * Starts the I/O of a socket.  After connection, a socket does not send
    * I/O events until started.  This allows listeners to be registered between
    * connect and start calls.
-   * 
+   *
    * @throws IllegalStateException  if closed or already started
    */
   void start(
@@ -94,12 +94,12 @@ public interface Socket extends Closeable {
   boolean isClosed();
 
   /**
-   * @see  ConcurrentListenerManager#addListener(java.lang.Object, boolean)
+   * See {@link ConcurrentListenerManager#addListener(java.lang.Object, boolean)}.
    */
   void addSocketListener(SocketListener listener, boolean synchronous) throws IllegalStateException;
 
   /**
-   * @see  ConcurrentListenerManager#removeListener(java.lang.Object)
+   * See {@link ConcurrentListenerManager#removeListener(java.lang.Object)}.
    */
   boolean removeSocketListener(SocketListener listener);
 

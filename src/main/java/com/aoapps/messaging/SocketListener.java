@@ -47,7 +47,7 @@ public interface SocketListener {
    * Messages are always delivered in-order.
    * At least one message will be provided.
    * Subsequent messages will not be sent until this onMessage completes.
-   * 
+   *
    * @param  messages  The unmodifiable list of messages in the order received
    */
   void onMessages(Socket socket, List<? extends Message> messages);
