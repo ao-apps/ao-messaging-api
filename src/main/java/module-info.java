@@ -29,4 +29,4 @@ module com.aoapps.messaging.api {
   requires com.aoapps.lang; // <groupId>com.aoapps</groupId><artifactId>ao-lang</artifactId>
   requires com.aoapps.security; // <groupId>com.aoapps</groupId><artifactId>ao-security</artifactId>
   requires com.aoapps.tempfiles; // <groupId>com.aoapps</groupId><artifactId>ao-tempfiles</artifactId>
-} // TODO: Avoiding rewrite-maven-plugin-4.22.2 truncation
+}
