@@ -26,6 +26,7 @@ package com.aoapps.messaging;
 import com.aoapps.collections.AoCollections;
 import com.aoapps.lang.io.AoByteArrayInputStream;
 import com.aoapps.lang.io.AoByteArrayOutputStream;
+import com.aoapps.lang.io.function.IOSupplier;
 import com.aoapps.tempfiles.TempFileContext;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -47,9 +48,10 @@ public class MultiMessage implements Message {
   public static final MultiMessage EMPTY_MULTI_MESSAGE = new MultiMessage(Collections.emptyList(), null);
 
   /**
-   * Decodes the messages using the provided {@link TempFileContext temporary file context}.
+   * Decodes the messages using the provided {@link TempFileContext temporary file context} supplier as-needed.
    */
-  public static MultiMessage decode(String encodedMessages, TempFileContext tempFileContext) throws IOException {
+  public static MultiMessage decode(String encodedMessages, IOSupplier<TempFileContext> tempFileContextSupplier)
+      throws IOException {
     if (encodedMessages.isEmpty()) {
       return EMPTY_MULTI_MESSAGE;
     }
@@ -68,7 +70,7 @@ public class MultiMessage implements Message {
       }
       final int capacity = Integer.parseInt(encodedMessages.substring(pos, nextPos++));
       pos = nextPos + capacity;
-      decodedMessages.add(type.decode(encodedMessages.substring(nextPos, pos), tempFileContext));
+      decodedMessages.add(type.decode(encodedMessages.substring(nextPos, pos), tempFileContextSupplier));
     }
     if (pos != encodedMessages.length()) {
       throw new IllegalArgumentException("pos != encodedMessages.length()");
@@ -77,12 +79,24 @@ public class MultiMessage implements Message {
   }
 
   /**
-   * Decodes the messages, possibly using temporary files with {@link File#deleteOnExit()}.
+   * Decodes the messages using the provided {@link TempFileContext temporary file context} as-needed.
    *
-   * @see  #decode(java.lang.String, com.aoapps.tempfiles.TempFileContext)
+   * @see  #decode(java.lang.String, com.aoapps.lang.io.function.IOSupplier)
    *
-   * @deprecated  Please use {@link TempFileContext}
-   *              as {@link File#deleteOnExit()} is prone to memory leaks in long-running applications.
+   * @deprecated  Please use {@link TempFileContext} supplier which may defer creation until first needed.
+   */
+  @Deprecated
+  public static MultiMessage decode(String encodedMessages, TempFileContext tempFileContext) throws IOException {
+    return decode(encodedMessages, () -> tempFileContext);
+  }
+
+  /**
+   * Decodes the messages, possibly using temporary files with {@link File#deleteOnExit()} as-needed.
+   *
+   * @see  #decode(java.lang.String, com.aoapps.lang.io.function.IOSupplier)
+   *
+   * @deprecated  Please use {@link TempFileContext} supplier since {@link File#deleteOnExit()} is prone to memory leaks
+   *              in long-running applications.
    */
   @Deprecated
   public static MultiMessage decode(String encodedMessages) throws IOException {
@@ -113,9 +127,10 @@ public class MultiMessage implements Message {
   }
 
   /**
-   * Decodes the messages using the provided {@link TempFileContext temporary file context}.
+   * Decodes the messages using the provided {@link TempFileContext temporary file context} suppler as-needed.
    */
-  public static MultiMessage decode(ByteArray encodedMessages, TempFileContext tempFileContext) throws IOException {
+  public static MultiMessage decode(ByteArray encodedMessages, IOSupplier<TempFileContext> tempFileContextSupplier)
+      throws IOException {
     if (encodedMessages.size == 0) {
       return EMPTY_MULTI_MESSAGE;
     }
@@ -133,7 +148,7 @@ public class MultiMessage implements Message {
         byte[] encodedMessage = new byte[capacity];
         in.readFully(encodedMessage, 0, capacity);
         totalRead += capacity;
-        decodedMessages.add(type.decode(new ByteArray(encodedMessage, capacity), tempFileContext));
+        decodedMessages.add(type.decode(new ByteArray(encodedMessage, capacity), tempFileContextSupplier));
       }
       if (totalRead != encodedMessages.size) {
         throw new IllegalArgumentException("totalRead != encodedMessages.size");
@@ -143,12 +158,24 @@ public class MultiMessage implements Message {
   }
 
   /**
-   * Decodes the messages, possibly using temporary files with {@link File#deleteOnExit()}.
+   * Decodes the messages using the provided {@link TempFileContext temporary file context} as-needed.
    *
-   * @see  #decode(com.aoapps.messaging.ByteArray, com.aoapps.tempfiles.TempFileContext)
+   * @see  #decode(com.aoapps.messaging.ByteArray, com.aoapps.lang.io.function.IOSupplier)
    *
-   * @deprecated  Please use {@link TempFileContext}
-   *              as {@link File#deleteOnExit()} is prone to memory leaks in long-running applications.
+   * @deprecated  Please use {@link TempFileContext} supplier which may defer creation until first needed.
+   */
+  @Deprecated
+  public static MultiMessage decode(ByteArray encodedMessages, TempFileContext tempFileContext) throws IOException {
+    return decode(encodedMessages, () -> tempFileContext);
+  }
+
+  /**
+   * Decodes the messages, possibly using temporary files with {@link File#deleteOnExit()} as-needed.
+   *
+   * @see  #decode(com.aoapps.messaging.ByteArray, com.aoapps.lang.io.function.IOSupplier)
+   *
+   * @deprecated  Please use {@link TempFileContext} supplier since {@link File#deleteOnExit()} is prone to memory leaks
+   *              in long-running applications.
    */
   @Deprecated
   public static MultiMessage decode(ByteArray encodedMessages) throws IOException {

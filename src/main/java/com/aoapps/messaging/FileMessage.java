@@ -65,8 +65,8 @@ public class FileMessage implements Message {
    *
    * @see  #decode(java.lang.String, java.io.File)
    *
-   * @deprecated  Please use {@link TempFileContext}
-   *              as {@link File#deleteOnExit()} is prone to memory leaks in long-running applications.
+   * @deprecated  Please use {@link TempFileContext} supplier since {@link File#deleteOnExit()} is prone to memory leaks
+   *              in long-running applications.
    */
   @Deprecated
   public static FileMessage decode(String encodedMessage) throws IOException {
@@ -98,8 +98,8 @@ public class FileMessage implements Message {
    *
    * @see  #decode(com.aoapps.messaging.ByteArray, java.io.File)
    *
-   * @deprecated  Please use {@link TempFileContext}
-   *              as {@link File#deleteOnExit()} is prone to memory leaks in long-running applications.
+   * @deprecated  Please use {@link TempFileContext} supplier since {@link File#deleteOnExit()} is prone to memory leaks
+   *              in long-running applications.
    */
   @Deprecated
   public static FileMessage decode(ByteArray encodedMessage) throws IOException {

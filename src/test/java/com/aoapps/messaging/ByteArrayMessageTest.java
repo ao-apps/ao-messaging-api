@@ -55,7 +55,7 @@ public class ByteArrayMessageTest {
           String encodedString = original.encodeAsString();
 
           // Decode back to message
-          try (ByteArrayMessage decoded = (ByteArrayMessage) MessageType.BYTE_ARRAY.decode(encodedString, tempFileContext)) {
+          try (ByteArrayMessage decoded = (ByteArrayMessage) MessageType.BYTE_ARRAY.decode(encodedString, () -> tempFileContext)) {
             assertEquals(original, decoded);
           }
         }
