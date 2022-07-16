@@ -48,6 +48,10 @@ along with ao-messaging-api.  If not, see <https://www.gnu.org/licenses/>.
         repository="@{nexusUrl}content/repositories/snapshots/"
         scmUrl="@{project.scm.url}"
       >
+        <!--
+          TODO: Also have an "allowFileMessage" option?  It would disallow anything that results in temp file space allocated.
+                Might be able to instead register an IOSupplier<IOSupplier<TempFileContext>> interceptor, which would throw an exception?
+        -->
         <ul>
           <li>Deferring creation of <code>TempFileContext</code> until first needed.</li>
         </ul>
