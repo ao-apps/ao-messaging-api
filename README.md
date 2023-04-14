@@ -21,7 +21,7 @@ Asynchronous bidirectional messaging over various protocols API.
 * [Project Home](https://oss.aoapps.com/messaging/api/)
 * [Changelog](https://oss.aoapps.com/messaging/api/changelog)
 * [API Docs](https://oss.aoapps.com/messaging/api/apidocs/)
-* [Maven Central Repository](https://central.sonatype.com/search?namespace=com.aoapps&q=a%3Aao-messaging-api)
+* [Maven Central Repository](https://central.sonatype.com/artifact/com.aoapps/ao-messaging-api)
 * [GitHub](https://github.com/ao-apps/ao-messaging-api)
 
 ## Contact Us
