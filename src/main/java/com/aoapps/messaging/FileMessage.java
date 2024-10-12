@@ -1,6 +1,6 @@
 /*
  * ao-messaging-api - Asynchronous bidirectional messaging over various protocols API.
- * Copyright (C) 2014, 2015, 2016, 2017, 2019, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2014, 2015, 2016, 2017, 2019, 2020, 2021, 2022, 2024  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -112,6 +112,9 @@ public class FileMessage implements Message {
   private final Object lock = new Object();
   private File file;
 
+  /**
+   * Creates a new {@link FileMessage}.
+   */
   public FileMessage(File file) {
     this(false, file);
   }
