@@ -1,6 +1,6 @@
 /*
  * ao-messaging-api - Asynchronous bidirectional messaging over various protocols API.
- * Copyright (C) 2014, 2015, 2016, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2014, 2015, 2016, 2020, 2021, 2022, 2024  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -25,10 +25,9 @@ package com.aoapps.messaging;
 
 /**
  * Receives notification on context events.
- * <p>
- * None of the messages will be triggered concurrently on this listener;
- * however, different listeners may be notified in parallel.
- * </p>
+ *
+ * <p>None of the messages will be triggered concurrently on this listener;
+ * however, different listeners may be notified in parallel.</p>
  */
 public interface SocketContextListener {
 

@@ -1,6 +1,6 @@
 /*
  * ao-messaging-api - Asynchronous bidirectional messaging over various protocols API.
- * Copyright (C) 2014, 2015, 2016, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2014, 2015, 2016, 2020, 2021, 2022, 2024  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -29,16 +29,14 @@ import java.util.List;
 /**
  * Receives messages as they come in from the sockets.
  * Also notified on other important socket events.
- * <p>
- * None of the messages will be triggered concurrently on this listener;
+ *
+ * <p>None of the messages will be triggered concurrently on this listener;
  * however, different listeners may be notified in parallel.
- * This means, for example, that onClose will not happen while onMessages is being invoked.
- * </p>
- * <p>
- * The given socket will always represent the current state, while the events are
+ * This means, for example, that onClose will not happen while onMessages is being invoked.</p>
+ *
+ * <p>The given socket will always represent the current state, while the events are
  * delivered in-order.  Thus, newRemoteSocketAddress may not necessarily be the
- * same as the HttpSocket.getMostRecentRemoteSocketAddress.
- * </p>
+ * same as the HttpSocket.getMostRecentRemoteSocketAddress.</p>
  */
 public interface SocketListener {
 
