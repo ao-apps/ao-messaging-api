@@ -1,6 +1,6 @@
 /*
  * ao-messaging-api - Asynchronous bidirectional messaging over various protocols API.
- * Copyright (C) 2014, 2015, 2016, 2017, 2019, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2014, 2015, 2016, 2017, 2019, 2020, 2021, 2022, 2025  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -85,7 +85,6 @@ public class MultiMessage implements Message {
    *
    * @deprecated  Please use {@link TempFileContext} supplier which may defer creation until first needed.
    */
-  @Deprecated
   public static MultiMessage decode(String encodedMessages, TempFileContext tempFileContext) throws IOException {
     return decode(encodedMessages, () -> tempFileContext);
   }
@@ -98,7 +97,7 @@ public class MultiMessage implements Message {
    * @deprecated  Please use {@link TempFileContext} supplier since {@link File#deleteOnExit()} is prone to memory leaks
    *              in long-running applications.
    */
-  @Deprecated
+  @Deprecated(forRemoval = true)
   public static MultiMessage decode(String encodedMessages) throws IOException {
     if (encodedMessages.isEmpty()) {
       return EMPTY_MULTI_MESSAGE;
@@ -164,7 +163,6 @@ public class MultiMessage implements Message {
    *
    * @deprecated  Please use {@link TempFileContext} supplier which may defer creation until first needed.
    */
-  @Deprecated
   public static MultiMessage decode(ByteArray encodedMessages, TempFileContext tempFileContext) throws IOException {
     return decode(encodedMessages, () -> tempFileContext);
   }
@@ -177,7 +175,7 @@ public class MultiMessage implements Message {
    * @deprecated  Please use {@link TempFileContext} supplier since {@link File#deleteOnExit()} is prone to memory leaks
    *              in long-running applications.
    */
-  @Deprecated
+  @Deprecated(forRemoval = true)
   public static MultiMessage decode(ByteArray encodedMessages) throws IOException {
     if (encodedMessages.size == 0) {
       return EMPTY_MULTI_MESSAGE;

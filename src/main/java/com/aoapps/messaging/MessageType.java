@@ -1,6 +1,6 @@
 /*
  * ao-messaging-api - Asynchronous bidirectional messaging over various protocols API.
- * Copyright (C) 2014, 2015, 2016, 2017, 2018, 2020, 2021, 2022, 2024  AO Industries, Inc.
+ * Copyright (C) 2014, 2015, 2016, 2017, 2018, 2020, 2021, 2022, 2024, 2025  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -50,7 +50,7 @@ public enum MessageType {
     }
 
     @Override
-    @Deprecated
+    @Deprecated(forRemoval = true)
     public ByteArrayMessage decode(String encodedMessage) {
       return ByteArrayMessage.decode(encodedMessage);
     }
@@ -61,7 +61,7 @@ public enum MessageType {
     }
 
     @Override
-    @Deprecated
+    @Deprecated(forRemoval = true)
     public ByteArrayMessage decode(ByteArray encodedMessage) {
       return new ByteArrayMessage(encodedMessage);
     }
@@ -94,7 +94,7 @@ public enum MessageType {
     }
 
     @Override
-    @Deprecated
+    @Deprecated(forRemoval = true)
     public FileMessage decode(String encodedMessage) throws IOException {
       return FileMessage.decode(encodedMessage);
     }
@@ -116,7 +116,7 @@ public enum MessageType {
     }
 
     @Override
-    @Deprecated
+    @Deprecated(forRemoval = true)
     public FileMessage decode(ByteArray encodedMessage) throws IOException {
       return FileMessage.decode(encodedMessage);
     }
@@ -138,7 +138,7 @@ public enum MessageType {
     }
 
     @Override
-    @Deprecated
+    @Deprecated(forRemoval = true)
     public StringMessage decode(String encodedMessage) {
       return new StringMessage(encodedMessage);
     }
@@ -149,7 +149,7 @@ public enum MessageType {
     }
 
     @Override
-    @Deprecated
+    @Deprecated(forRemoval = true)
     public StringMessage decode(ByteArray encodedMessage) {
       return StringMessage.decode(encodedMessage);
     }
@@ -171,7 +171,7 @@ public enum MessageType {
     }
 
     @Override
-    @Deprecated
+    @Deprecated(forRemoval = true)
     public MultiMessage decode(String encodedMessage) throws IOException {
       return MultiMessage.decode(encodedMessage);
     }
@@ -182,7 +182,7 @@ public enum MessageType {
     }
 
     @Override
-    @Deprecated
+    @Deprecated(forRemoval = true)
     public MultiMessage decode(ByteArray encodedMessage) throws IOException {
       return MultiMessage.decode(encodedMessage);
     }
@@ -249,7 +249,6 @@ public enum MessageType {
    *
    * @deprecated  Please use {@link TempFileContext} supplier which may defer creation until first needed.
    */
-  @Deprecated
   public final Message decode(String encodedMessage, TempFileContext tempFileContext) throws IOException {
     return decode(encodedMessage, () -> tempFileContext);
   }
@@ -263,7 +262,7 @@ public enum MessageType {
    * @deprecated  Please use {@link TempFileContext} supplier since {@link File#deleteOnExit()} is prone to memory leaks
    *              in long-running applications.
    */
-  @Deprecated
+  @Deprecated(forRemoval = true)
   public abstract Message decode(String encodedMessage) throws IOException;
 
   /**
@@ -281,7 +280,6 @@ public enum MessageType {
    *
    * @deprecated  Please use {@link TempFileContext} supplier which may defer creation until first needed.
    */
-  @Deprecated
   public final Message decode(ByteArray encodedMessage, TempFileContext tempFileContext) throws IOException {
     return decode(encodedMessage, () -> tempFileContext);
   }
@@ -295,6 +293,6 @@ public enum MessageType {
    * @deprecated  Please use {@link TempFileContext} supplier since {@link File#deleteOnExit()} is prone to memory leaks
    *              in long-running applications.
    */
-  @Deprecated
+  @Deprecated(forRemoval = true)
   public abstract Message decode(ByteArray encodedMessage) throws IOException;
 }

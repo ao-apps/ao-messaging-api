@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 ao-messaging-api - Asynchronous bidirectional messaging over various protocols API.
-Copyright (C) 2016, 2017, 2019, 2020, 2021, 2022, 2023  AO Industries, Inc.
+Copyright (C) 2016, 2017, 2019, 2020, 2021, 2022, 2023, 2025  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -37,7 +37,7 @@ along with ao-messaging-api.  If not, see <https://www.gnu.org/licenses/>.
     shortTitle="Changelog"
     tocLevels="1"
     datePublished="2016-10-29T20:37:42-05:00"
-    dateModified="2022-07-15T20:29:41-05:00"
+    dateModified="2025-02-11T04:27:06Z"
   >
     <c:set var="latestRelease" value="3.1.0" />
     <c:if test="${
@@ -53,6 +53,9 @@ along with ao-messaging-api.  If not, see <https://www.gnu.org/licenses/>.
         repository="@{nexusUrl}content/repositories/snapshots/"
         scmUrl="@{project.scm.url}"
       >
+        <ul>
+          <li>Minimum Java version changed from 1.8 to 11.</li>
+        </ul>
         <!--
           TODO: Also have an "allowFileMessage" option?  It would disallow anything that results in temp file space allocated.
                 Might be able to instead register an IOSupplier<IOSupplier<TempFileContext>> interceptor, which would throw an exception?
