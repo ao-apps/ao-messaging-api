@@ -239,7 +239,7 @@ along with ao-messaging-api.  If not, see <https://www.gnu.org/licenses/>.
       </dependency>
       <!-- Transitive -->
       <dependency>
-        <groupId>org.apache.commons</groupId><artifactId>commons-lang3</artifactId><version>3.18.0</version>
+        <groupId>org.apache.commons</groupId><artifactId>commons-lang3</artifactId><version>3.19.0</version>
       </dependency>
       <!-- Test Direct -->
       <dependency>
