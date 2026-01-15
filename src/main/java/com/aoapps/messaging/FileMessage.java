@@ -1,6 +1,6 @@
 /*
  * ao-messaging-api - Asynchronous bidirectional messaging over various protocols API.
- * Copyright (C) 2014, 2015, 2016, 2017, 2019, 2020, 2021, 2022, 2024, 2025  AO Industries, Inc.
+ * Copyright (C) 2014, 2015, 2016, 2017, 2019, 2020, 2021, 2022, 2024, 2025, 2026  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -43,7 +43,7 @@ import java.nio.file.Files;
 public class FileMessage implements Message {
 
   /**
-   * base-64 decodes the message into the provided file.
+   * Base-64 decodes the message into the provided file.
    *
    * @see #decode(com.aoapps.messaging.ByteArray, java.io.File)
    */
@@ -61,7 +61,7 @@ public class FileMessage implements Message {
   }
 
   /**
-   * base-64 decodes the message into a temp file.
+   * Base-64 decodes the message into a temp file.
    *
    * @see  #decode(java.lang.String, java.io.File)
    *
@@ -160,7 +160,7 @@ public class FileMessage implements Message {
   }
 
   /**
-   * base-64 encodes the message.
+   * Base-64 encodes the message.
    */
   @Override
   public String encodeAsString() throws IOException {
