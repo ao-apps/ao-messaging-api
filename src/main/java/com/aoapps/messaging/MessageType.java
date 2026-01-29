@@ -245,7 +245,7 @@ public enum MessageType {
    * Constructs a message of this type from its string encoding using the provided
    * {@link TempFileContext temporary file context} as-needed.
    *
-   * @see  #decode(java.lang.String, com.aoapps.lang.io.function.IOSupplier)
+   * @see  MessageType#decode(java.lang.String, com.aoapps.lang.io.function.IOSupplier)
    *
    * @deprecated  Please use {@link TempFileContext} supplier which may defer creation until first needed.
    */
@@ -257,7 +257,7 @@ public enum MessageType {
    * Constructs a message of this type from its string encoding, possibly using temporary files with
    * {@link File#deleteOnExit()} as-needed.
    *
-   * @see  #decode(java.lang.String, com.aoapps.lang.io.function.IOSupplier)
+   * @see  MessageType#decode(java.lang.String, com.aoapps.lang.io.function.IOSupplier)
    *
    * @deprecated  Please use {@link TempFileContext} supplier since {@link File#deleteOnExit()} is prone to memory leaks
    *              in long-running applications.
@@ -276,7 +276,7 @@ public enum MessageType {
    * Constructs a message of this type from its byte array encoding using the provided
    * {@link TempFileContext temporary file context} as-needed.
    *
-   * @see  #decode(com.aoapps.messaging.ByteArray, com.aoapps.lang.io.function.IOSupplier)
+   * @see  MessageType#decode(com.aoapps.messaging.ByteArray, com.aoapps.lang.io.function.IOSupplier)
    *
    * @deprecated  Please use {@link TempFileContext} supplier which may defer creation until first needed.
    */
@@ -288,7 +288,7 @@ public enum MessageType {
    * Constructs a message of this type from its byte array encoding, possibly using temporary files with
    * {@link File#deleteOnExit()} as-needed.
    *
-   * @see  #decode(com.aoapps.messaging.ByteArray, com.aoapps.lang.io.function.IOSupplier)
+   * @see  MessageType#decode(com.aoapps.messaging.ByteArray, com.aoapps.lang.io.function.IOSupplier)
    *
    * @deprecated  Please use {@link TempFileContext} supplier since {@link File#deleteOnExit()} is prone to memory leaks
    *              in long-running applications.

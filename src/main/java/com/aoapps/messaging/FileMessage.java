@@ -45,7 +45,7 @@ public class FileMessage implements Message {
   /**
    * Base-64 decodes the message into the provided file.
    *
-   * @see #decode(com.aoapps.messaging.ByteArray, java.io.File)
+   * @see FileMessage#decode(com.aoapps.messaging.ByteArray, java.io.File)
    */
   public static FileMessage decode(String encodedMessage, File file) throws IOException {
     return decode(
@@ -63,7 +63,7 @@ public class FileMessage implements Message {
   /**
    * Base-64 decodes the message into a temp file.
    *
-   * @see  #decode(java.lang.String, java.io.File)
+   * @see  FileMessage#decode(java.lang.String, java.io.File)
    *
    * @deprecated  Please use {@link TempFileContext} supplier since {@link File#deleteOnExit()} is prone to memory leaks
    *              in long-running applications.
@@ -84,7 +84,7 @@ public class FileMessage implements Message {
   /**
    * Restores this message into the provided file.
    *
-   * @see  #decode(java.lang.String, java.io.File)
+   * @see  FileMessage#decode(java.lang.String, java.io.File)
    */
   public static FileMessage decode(ByteArray encodedMessage, File file) throws IOException {
     try (OutputStream out = new FileOutputStream(file)) {
@@ -96,7 +96,7 @@ public class FileMessage implements Message {
   /**
    * Restores this message into a temp file.
    *
-   * @see  #decode(com.aoapps.messaging.ByteArray, java.io.File)
+   * @see  FileMessage#decode(com.aoapps.messaging.ByteArray, java.io.File)
    *
    * @deprecated  Please use {@link TempFileContext} supplier since {@link File#deleteOnExit()} is prone to memory leaks
    *              in long-running applications.

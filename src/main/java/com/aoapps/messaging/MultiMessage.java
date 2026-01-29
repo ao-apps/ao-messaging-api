@@ -81,7 +81,7 @@ public class MultiMessage implements Message {
   /**
    * Decodes the messages using the provided {@link TempFileContext temporary file context} as-needed.
    *
-   * @see  #decode(java.lang.String, com.aoapps.lang.io.function.IOSupplier)
+   * @see  MultiMessage#decode(java.lang.String, com.aoapps.lang.io.function.IOSupplier)
    *
    * @deprecated  Please use {@link TempFileContext} supplier which may defer creation until first needed.
    */
@@ -92,7 +92,7 @@ public class MultiMessage implements Message {
   /**
    * Decodes the messages, possibly using temporary files with {@link File#deleteOnExit()} as-needed.
    *
-   * @see  #decode(java.lang.String, com.aoapps.lang.io.function.IOSupplier)
+   * @see  MultiMessage#decode(java.lang.String, com.aoapps.lang.io.function.IOSupplier)
    *
    * @deprecated  Please use {@link TempFileContext} supplier since {@link File#deleteOnExit()} is prone to memory leaks
    *              in long-running applications.
@@ -159,7 +159,7 @@ public class MultiMessage implements Message {
   /**
    * Decodes the messages using the provided {@link TempFileContext temporary file context} as-needed.
    *
-   * @see  #decode(com.aoapps.messaging.ByteArray, com.aoapps.lang.io.function.IOSupplier)
+   * @see  MultiMessage#decode(com.aoapps.messaging.ByteArray, com.aoapps.lang.io.function.IOSupplier)
    *
    * @deprecated  Please use {@link TempFileContext} supplier which may defer creation until first needed.
    */
@@ -170,7 +170,7 @@ public class MultiMessage implements Message {
   /**
    * Decodes the messages, possibly using temporary files with {@link File#deleteOnExit()} as-needed.
    *
-   * @see  #decode(com.aoapps.messaging.ByteArray, com.aoapps.lang.io.function.IOSupplier)
+   * @see  MultiMessage#decode(com.aoapps.messaging.ByteArray, com.aoapps.lang.io.function.IOSupplier)
    *
    * @deprecated  Please use {@link TempFileContext} supplier since {@link File#deleteOnExit()} is prone to memory leaks
    *              in long-running applications.
